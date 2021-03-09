@@ -228,6 +228,24 @@
   padding-left: 30px;
   height: max-content;
 }
+.Profile_dropdown {
+  position: relative;
+}
+.profile_list {
+  position: absolute;
+  top: 8%;
+  right: 130px;
+  border: 1px solid black;
+  width: 120px;
+  height: 200px;
+  transition-delay: 1s;
+  transition: height 5s ease-in-out;
+  background-color: white;
+  z-index: 1;
+}
+.profile_list li {
+  list-style: none;
+}
 
 @media all and (max-width: 1150px) {
   .Nav_middle {
@@ -281,6 +299,17 @@
 }
 
 @media all and (max-width: 600px) {
+  .profile_list {
+    position: absolute;
+    top: 16%;
+    border: 1px solid black;
+    width: 180px;
+    height: 200px;
+    transition-delay: 1s;
+    transition: height 5s ease-in-out;
+    background-color: white;
+    z-index: 1;
+  }
   .Nav2 {
     display: flex;
     padding-left: 50px;

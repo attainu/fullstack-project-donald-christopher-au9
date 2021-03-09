@@ -13,7 +13,8 @@ class Navbar extends Component {
       City_searchlist: "none",
       cancelsearch_city:'none',
       hospital_searchlist: "none",
-      cancelsearch_hospital:'none'
+      cancelsearch_hospital:'none',
+      profiledisplay:'none'
     };
   }
   Citysearchhandler = () => {
@@ -27,6 +28,11 @@ class Navbar extends Component {
     const cancelsearch_hospital = this.state.hospital_searchlist === "none" ? "block" : "none";
     this.setState({ hospital_searchlist,cancelsearch_hospital});
   };
+  profilehandler=()=>
+  {
+    const ans = this.state.profiledisplay==="none"?"block":"none"
+    this.setState({profiledisplay:ans})
+  }
 
   render() {
     return (
@@ -69,6 +75,13 @@ class Navbar extends Component {
             <BiChevronDown />
           </div>
           <Link to='/authpage/login'><button>Login / Signup</button></Link>
+          {/* <span onClick={this.profilehandler} className='Profile_dropdown'>Alfred Richards <BiChevronDown /></span> */}
+          <div className='profile_list' style={{display:this.state.profiledisplay}}>
+            <li>a</li>
+            <li>a</li>
+            <li>a</li>
+            <li>a</li>
+          </div>
         </div></div>
         <hr style={{ color: "grey" }} />
         <div className="Nav2">
