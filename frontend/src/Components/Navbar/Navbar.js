@@ -68,7 +68,7 @@ class Navbar extends Component {
             <span>Security & help</span>
             <BiChevronDown />
           </div>
-          <button>Login / Signup</button>
+          <Link to='/authpage/login'><button>Login / Signup</button></Link>
         </div></div>
         <hr style={{ color: "grey" }} />
         <div className="Nav2">

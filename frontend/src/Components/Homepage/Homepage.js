@@ -6,10 +6,11 @@ import Find from './Find'
 import Speciality from './Speciality'
 import Read from './Read'
 import Footer from './Footer'
-
+import Navbar from '../Navbar/Navbar'
 const Homepage = () => {
     return (
         <div className='Home_container'>
+              <Navbar/>
             <Doctor/>
             <Find/>
             <Speciality/>

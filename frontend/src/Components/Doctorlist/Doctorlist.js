@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Doctorlist.css";
 import Doctorlogo from "../Doctorlist/images/doctorlogo.png";
 import Nav3 from '../Navbar/Nav3'
+import Navbar from '../Navbar/Navbar'
 
 class Doctorlist extends Component{
   constructor()
@@ -15,6 +16,8 @@ class Doctorlist extends Component{
   {
   return (
     <div className="Doctorlist_main_container">
+    
+ <Navbar/>
     <Nav3/>
       <div className="Doctorlist_container">
           <div className="Doctorlist_container_text">
