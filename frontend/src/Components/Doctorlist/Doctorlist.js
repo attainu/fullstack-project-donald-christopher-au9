@@ -14,50 +14,51 @@ class Doctorlist extends Component{
   render()
   {
   return (
-    <div className="listingleft">
+    <div className="Doctorlist_main_container">
     <Nav3/>
       <div className="Doctorlist_container">
-        <div className="main">
-          <div className="maintext">
+          <div className="Doctorlist_container_text">
             <h1>Book from 109 cosmetic/aesthetic dentist in Bangalore</h1>
             <p>With predicted wait-time & verified details</p>
           </div>
-          <div className="listing_doctor_card">
+          <div className="Doctor_card">
             <div className="doctorimg">
               <img src={Doctorlogo} alt=""></img>
             </div>
-            <div className="info_section">
-              <h2>Donald christopher</h2>
-              <div className="profession">
-                <div className="specilization">
-                  <span>Cosmetic/Aesthetic Dentist</span>
+            <div className="Doctor_card_info">
+                <div className='Doctor_name'>
+                   <span>Benjimen Richards</span>
                 </div>
-                <div className="experience">
-                  <span>15 years experience overall</span>
+                <div className='Doctor_specilisation' id='Doctor_specilisation_text'>
+                   <span>Doctor_specilisation</span>
+                </div>
+                <div className='Doctor_experience' id='Doctor_specilisation_text'>
+                   <span>Doctor_experience</span>
+                </div>
+                <div className='Doctor_hospital_name' id='Doctor_specilisation_text'>
+                   <strong>Doctor_hospital_name</strong>
+                </div>
+                <div className='Doctor_hospital_fee' id='Doctor_specilisation_text'> 
+                   <span>Doctor_hospital_fee</span>
+                </div>
+                <div className='Doctor_card_stories'>
+                  <button>Like</button>
+                  <span>Patient stories</span>
                 </div>
               </div>
-              <div className="consultfee">
-                <span>Nagawara,</span>
-                <span>Bangalore. </span>
-                <span>Aesthetic Dental Clinic +3 more </span>
-                <br></br>
-                <span>₹250 </span>
-                <span>Consultation fee at clinic</span>
-              </div>
-            </div>
-            <div className="appointment_section">
-              <div className="aval">
+              <div className="Doctor_card_buttons" >
+              <div className="Doctor_card_button_avaliable">
                 <span>Available</span>
               </div>
-              <div className="but">
-                <button>Book appointment</button>
-                <button>Video Consult</button>
+              <div className="Doctor_card_button_appoint">
+                <button id='appointment'>Book appointment</button>
+                <button id='video'>Video Consult</button>
               </div>
             </div>
+            </div>
+            
           </div>
         </div>
-      </div>
-    </div>
   );}
   
 }

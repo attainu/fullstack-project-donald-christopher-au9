@@ -1,0 +1,88 @@
+.Appointments_container_top {
+  display: flex;
+  padding: 15px;
+  height: 70px;
+
+  /* justify-content: space-around; */
+}
+.Appointments_body {
+  padding: 26px 40px 20px;
+  background-color: rgb(238, 225, 225);
+}
+.Appointments_container {
+  position: relative;
+  background-color: white;
+}
+.Appointments_container_top h2 {
+  font-size: 18px;
+  height: 40px;
+}
+.Profile_list {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  /* border: 1px solid black; */
+  width: 80%;
+  height: 40px;
+}
+.user_details {
+  display: flex;
+  flex-direction: column;
+}
+.Appointments_container_bottom {
+  display: flex;
+  border-bottom: 1px solid grey;
+}
+.file_img {
+  width: 100px;
+  height: 100px;
+}
+.file_img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.bottom_left {
+  width: 20rem;
+  margin-top: -17px;
+  border-right: 1px solid rgb(211, 197, 197);
+}
+.bottom_left li {
+  list-style: none;
+  font-size: 14px;
+  padding: 16px 10px 16px 20px;
+  height: 50px;
+  border-bottom: 1px solid rgb(179, 173, 173);
+}
+.bottom_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 70vh;
+}
+.Bottom_menu {
+  display: none;
+}
+@media all and (max-width: 500px) {
+  .Appointments_container_bottom {
+    flex-direction: column;
+  }
+  .bottom_left {
+    width: 100%;
+  }
+  .Bottom_menu {
+    display: flex;
+    position: absolute;
+    top: 2%;
+    right: 5%;
+    width: 40px;
+    height: 30px;
+  }
+  .Appointments_body {
+    padding-top: 10%;
+    padding-right: 0%;
+    padding-left: 0%;
+  }
+}

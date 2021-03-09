@@ -13,7 +13,7 @@
   /* min-height: 100vh; */
 }
 .Nav_cntainer img {
-  width: 150px;
+  width: 110px;
   height: 80px;
 }
 .Nav_middle {
@@ -96,8 +96,9 @@
   color: grey;
   height: 40px;
   /* border: 1px solid black; */
+  height: 100%;
   padding-top: 10px;
-  justify-content: space-evenly;
+  justify-content: start;
   display: flex;
   /* width: 20%; */
   flex-direction: column;

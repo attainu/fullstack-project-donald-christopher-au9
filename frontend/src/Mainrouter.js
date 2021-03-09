@@ -7,6 +7,7 @@ import Loginpage from './Components/Login components/Loginpage';
 import Navbar from './Components/Navbar/Navbar'
 
 import Doctorlist from './Components/Doctorlist/Doctorlist';
+import Appointments from './Components/Appointments/Appointments';
 const App = () => {
   return (
     <div>
@@ -15,6 +16,7 @@ const App = () => {
         <Route path='/' exact component={Homepage}/>
         <Route path='/login' component={Loginpage}/>
         <Route path='/doctorlist' component={Doctorlist}/>
+        <Route path='/appointments' component={Appointments}/>
       </BrowserRouter>
     </div>
   )

@@ -1,59 +1,81 @@
 .Doctorlist_container {
-  padding: 0px 5rem;
   display: flex;
+  flex-direction: column;
+  padding-left: 5%;
+  max-width: 850px;
+  height: max-content;
+  justify-content: center;
 }
-
-.listing_doctor_card {
-  padding: 24px 0px;
+.Doctor_card {
   display: flex;
-  width: 785px;
-  height: 225px;
+  height: 250px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
-
-.doctorimg img {
-  height: 140px;
-  width: 140px;
+.Doctor_card_info {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border: 1px solid black; */
+  height: 80%;
+  margin-left: -10%;
+  align-items: flex-start;
+  line-height: 10px;
 }
-.info_section {
-  padding: 0px 16px;
-  width: 380px;
-  height: 176.7px;
+.Doctor_name {
+  font-size: 20px;
 }
-h2 {
-  font: 20px;
-  margin: 0;
-  color: #14bef0;
-  width: 348.34px;
-  height: 28px;
-}
-
-.profession {
-  margin-top: 10px;
-  width: 348px;
-  height: 19.2px;
-  color: #787887;
-}
-.consultfee {
-  width: 348.34px;
-  height: 43px;
-  color: #414146;
+#Doctor_specilisation_text {
   font-size: 14px;
-  margin-top: 35px;
 }
-.aval {
+.Doctor_card_stories {
   display: flex;
-  justify-content: center;
+  /* border: 1px solid black; */
+  width: 100%;
+  justify-content: space-between;
 }
-.but {
-  margin-top: 20px;
-  margin-left: 40px;
-  border: 1px solid black;
+.Doctor_card_stories button {
+  height: 25px;
+  background-color: #00a500;
+  color: white;
+  border-radius: 3px;
+  width: 50px;
 }
-.appointment_section {
-  /* display: flex; */
-  /* flex-direction: row; */
-  justify-content: center;
-  width: 220px;
-  height: 176px;
-  margin: 0px 16px;
+.Doctor_card_buttons {
+  display: flex;
+  /* border: 1px solid black; */
+  flex-direction: column;
+  height: 80%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.Doctor_card_buttons span {
+  font-size: 14px;
+  color: #01a400;
+  font-weight: 500;
+  text-align: center;
+}
+.Doctor_card_button_appoint {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border: 1px solid black; */
+  height: 50%;
+}
+.Doctor_card_button_appoint button {
+  width: 13rem;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+}
+#appointment {
+  background-color: #14bef0;
+  color: white;
+}
+#video {
+  color: #14bef0;
+  background-color: white;
+  border: 1px solid grey;
 }
