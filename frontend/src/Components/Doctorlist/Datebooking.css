@@ -1,6 +1,6 @@
 .booking_container {
   /* border: 1px solid black; */
-  max-width: 750px;
+  width: 100%;
   min-height: 250px;
   max-height: max-content;
 }
@@ -68,7 +68,8 @@
 @media all and (max-width: 600px) {
   .booking_container {
     /* border: 1px solid black; */
-    margin-left: -10%;
+    margin-left: -40%;
+    width: 370px;
   }
   .booking_top {
     display: flex;

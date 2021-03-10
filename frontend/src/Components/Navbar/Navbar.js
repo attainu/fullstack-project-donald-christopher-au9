@@ -44,6 +44,7 @@ class Navbar extends Component {
               src="https://i2.wp.com/www.cosmoderma.healios.co.in/wp-content/uploads/2019/04/practo.png?fit=1586%2C1057"
               alt="/"
             />
+    
             </Link>
           </div>
           <div className="Nav_middle">

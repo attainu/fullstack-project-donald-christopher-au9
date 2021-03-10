@@ -1,11 +1,28 @@
 .confirm_container {
   display: flex;
   justify-content: center;
-  width: 100%;
   min-height: 50vh;
+  width: 100%;
   flex-wrap: wrap;
   align-items: center;
   /* border: 1px solid black; */
+}
+.confirm_nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 100px;
+  padding-right: 100px;
+  align-items: center;
+  height: 80px;
+  background-color: white;
+}
+.confirm_nav img {
+  width: 110px;
+  height: 80px;
+}
+.confirmappoint_container {
+  width: 100%;
 }
 .confirminfo {
   max-width: 400px;
