@@ -1,0 +1,57 @@
+.confirm_container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  min-height: 50vh;
+  /* border: 1px solid black; */
+}
+.confirminfo {
+  max-width: 400px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
+  max-height: 500px;
+}
+.Main_confirm_container {
+  background-color: rgb(236, 228, 228);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.confirm_top span {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+}
+.confirm_dateinfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+.confirm_docinfo {
+  display: flex;
+  padding: 16px;
+}
+.doc_img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.doc_img img {
+  width: 100px;
+  height: 100px;
+}
+.docinfo {
+  display: flex;
+  flex-direction: column;
+  line-height: 15px;
+}
+.Hospital_info {
+  width: 100%;
+  padding: 10px;
+}
+.Hospital_info span {
+  word-wrap: break-word;
+}

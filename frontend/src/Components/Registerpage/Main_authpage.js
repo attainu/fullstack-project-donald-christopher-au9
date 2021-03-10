@@ -3,6 +3,7 @@ import './Authpage.css'
 import Loginpage from "./Loginpage";
 import Register from "./Register";
 import {Link, Route } from 'react-router-dom'
+import Doctorslogin from "./Doctorslogin";
 class Main_authpage extends Component
 {
   render()
@@ -24,11 +25,9 @@ class Main_authpage extends Component
                     <img src='https://accounts.practo.com/static/images/illustration.png' alt='/'/>
                 </div>
                 <div className='Content_right'>
-                
-                <Route path='/authpage/register' component={Register}/>
-                <Route path='/authpage/login' component={Loginpage}/>
-                  
-                  {/* <Register/> */}
+                    <Route path='/authpage/register' component={Register}/>
+                    <Route path='/authpage/login' component={Loginpage}/>
+                    <Route path='/authpage/doctor' component={Doctorslogin}/>
                 </div>
                </div>
             </div>

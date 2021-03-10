@@ -8,16 +8,19 @@ import Doctorlist from './Components/Doctorlist/Doctorlist';
 import Appointments from './Components/Appointments/Appointments';
 
 import Main_authpage from './Components/Registerpage/Main_authpage';
+import Datebooking from './Components/Doctorlist/Datebooking';
+import Confirmappointment from './Components/Appointments/Confirmappointment';
 const App = () => {
   return (
     <div>
       <BrowserRouter>
 
         <Route path='/' exact component={Homepage}/>
-        {/* <Route path='/login' component={Loginpage}/> */}
         <Route path='/doctorlist' component={Doctorlist}/>
         <Route path='/appointments' component={Appointments}/>
+        <Route path='/booking' component={Datebooking}/>
         <Route path='/authpage' component={Main_authpage}/>
+        <Route path='/confirmappointment/:id' component={Confirmappointment}/>
       </BrowserRouter>
     </div>
   )

@@ -1,0 +1,67 @@
+.booking_container {
+  /* border: 1px solid black; */
+  max-width: 750px;
+  min-height: 250px;
+  max-height: max-content;
+}
+.booking_top {
+  display: flex;
+  justify-content: space-evenly;
+  overflow-x: scroll;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.booking_top button {
+  width: 180px;
+  height: 60px;
+  border: none;
+  padding: 10px 0 5px;
+  background-color: white;
+}
+.booking_top button:focus {
+  border-bottom: 4px solid rgb(109, 150, 197);
+}
+.booking_slot {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.morningblock {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.morningtext {
+  margin-right: 70px;
+}
+.afternoonblock {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.afternoontext {
+  margin-right: 60px;
+}
+.Morningslots {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.Afternoonslots {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.booking_slot button {
+  width: 84px;
+  height: 35px;
+  color: #2d2d32;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 5px;
+}

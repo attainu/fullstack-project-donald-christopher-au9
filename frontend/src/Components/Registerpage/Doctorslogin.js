@@ -8,12 +8,10 @@ class Register extends Component
         return(
             <div className='Register_container'>
                     <div className='Top_header'>
-                        <h5 style={{fontWeight:'400',marginLeft:'-10px'}}>Join Practo</h5>
-                        <span style={{marginTop:'5px'}}>Are you a doctor?
-                        <Link to='/authpage/doctor' style={{textDecoration:'none',color:'black'}}>
-                        <span style={{color:'#ed982d'}}>Register Here</span>
+                        <h8 style={{fontWeight:'100',marginLeft:'-10px'}}>Join 125,000+ doctors</h8>
+                        <Link to='/authpage/register' style={{textDecoration:'none',color:'black'}}>
+                        <span style={{color:'#13bef0'}}>Are you not a doctor?</span>
                         </Link>
-                        </span> 
                     </div>
                     <hr/>
                     <div className='Fullname'>
