@@ -65,3 +65,40 @@
   border: 1px solid grey;
   border-radius: 5px;
 }
+@media all and (max-width: 600px) {
+  .booking_container {
+    /* border: 1px solid black; */
+    margin-left: -10%;
+  }
+  .booking_top {
+    display: flex;
+  }
+  .booking_top button {
+    width: 180px;
+    height: 60px;
+    border: none;
+    padding: 10px 0 5px;
+    background-color: white;
+  }
+  .booking_slot {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .morningtext {
+    margin-right: 10px;
+  }
+
+  .afternoontext {
+    margin-right: 10px;
+  }
+  .Morningslots {
+    /* border: 1px solid black; */
+    overflow-x: scroll;
+  }
+  .Afternoonslots {
+    /* border: 1px solid black; */
+    overflow-x: scroll;
+  }
+}

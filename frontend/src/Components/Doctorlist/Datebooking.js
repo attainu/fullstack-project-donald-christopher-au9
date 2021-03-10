@@ -92,8 +92,7 @@ class Datebooking extends Component{
         const day = date.getDate()
         const month=date.getMonth()
         const year=date.getFullYear()
-        this.setState({day,month,year,id:this.props.id,})
-        console.log(this.props)
+        this.setState({day,month,year,id:this.props.id})
         // conole.log(day,"-",month,"-",year)
     }
 }

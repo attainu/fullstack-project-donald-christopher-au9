@@ -1,13 +1,33 @@
 .Doctorlist_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   /* border: 1px solid black; */
-  padding-left: 5%;
   max-width: 850px;
   height: max-content;
   justify-content: center;
+  padding-left: 7%;
 }
+.Doctorlist_main_container {
+  display: flex;
+  /* border: 1px solid black; */
+  justify-content: space-between;
+}
+.doctor_rightside {
+  display: flex;
+  top: 0%;
+  right: 0%;
+  height: 100vh;
+  /* border: 1px solid black; */
+}
+.doctor_rightside img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 .Doctor_card {
+  /* border: 1px solid black; */
   display: flex;
   min-height: 250px;
   max-height: max-content;
@@ -78,6 +98,17 @@
   border-radius: 5px;
   border: none;
 }
+.doctor_card_header {
+  display: flex;
+  width: 100%;
+  /* border: 1px solid black */
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.doctor_card_header span {
+  font-size: 24px;
+  font-weight: 500;
+}
 #appointment {
   /* background-color: #14bef0; */
   color: white;
@@ -86,4 +117,27 @@
   color: #14bef0;
   background-color: white;
   border: 1px solid grey;
+}
+@media all and (max-width: 600px) {
+  .Doctor_card {
+    flex-direction: column;
+  }
+  .doctor_card_header {
+    display: none;
+    flex-wrap: wrap;
+  }
+}
+@media all and (max-width: 720px) {
+  .doctor_card_header {
+    margin-left: 10%;
+  }
+}
+@media all and (max-width: 1150px) {
+  .doctor_rightside {
+    display: none;
+  }
+
+  .Doctorlist_main_container {
+    justify-content: center;
+  }
 }

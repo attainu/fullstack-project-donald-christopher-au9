@@ -44,7 +44,42 @@ class Confirmappointment extends Component {
                 </div>
                 <div className='Confirm_details'>
                     <div className='confirmdetails_inputs'>
-                        inputs
+                        <div className='patientinfo_top'>
+                            <span>Patient Details</span>
+                            <p>This in-clinic appointment is for:</p>
+                        </div>
+                        <div>
+                        <div className='patient_inputs'>
+                            <input type='radio' name='patientname'/>
+                            <label>Alfredrichards</label>
+                        </div>
+                        <div className='patient_inputs'>
+                            <input type='radio' name='patientname' />
+                            <label>Alfredrichards</label>
+                        </div>
+                        </div>
+                        <div className='patientinfo_top' id='provide_info'>
+                            <p>Please provide following information about Alfred Richards:</p>
+                        </div>
+                        <div className='Patient_info_inputs'>
+                            <span>Full Name</span>
+                            <input placeholder='Alfred Richards'/>
+                        </div>
+                        <div className='Patient_info_inputs'>
+                            <span>Mobile</span>
+                            <input placeholder='8886833905'/>
+                        </div>
+                        <div className='Patient_info_inputs'>
+                            <span>Email</span>
+                            <input placeholder=''/>
+                        </div>
+                        <div className='paitent_whatsapp_check'>
+                            <input type='checked'/>
+                            <span>Get updates in whatsapp number 8886833905</span>
+                        </div>
+                        <div className='patientinfo_button'>
+                           <button>Confirm</button>
+                        </div>
                     </div>
                 </div>
             </div>

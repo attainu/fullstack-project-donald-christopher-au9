@@ -1,23 +1,32 @@
 .confirm_container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 100%;
   min-height: 50vh;
+  flex-wrap: wrap;
+  align-items: center;
   /* border: 1px solid black; */
 }
 .confirminfo {
   max-width: 400px;
+  margin-right: 50px;
   width: 100%;
   background-color: white;
-  border: 1px solid black;
+  align-items: center;
+  /* border: 1px solid black; */
   max-height: 500px;
 }
 .Main_confirm_container {
-  background-color: rgb(236, 228, 228);
+  background-color: #f0f0f5;
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.confirm_top {
+  height: 50px;
+  display: flex;
   align-items: center;
 }
 .confirm_top span {
@@ -28,11 +37,14 @@
 .confirm_dateinfo {
   display: flex;
   justify-content: space-between;
-  padding: 16px;
+  padding: 10px;
+  height: 40px;
 }
 .confirm_docinfo {
   display: flex;
   padding: 16px;
+  flex-wrap: wrap;
+  /* border: 1px solid black; */
 }
 .doc_img {
   width: 100px;
@@ -44,14 +56,104 @@
   height: 100px;
 }
 .docinfo {
+  /* border: 1px solid black; */
   display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
   flex-direction: column;
-  line-height: 15px;
+  text-align: center;
+  width: 150px;
+  /* line-height: 15px; */
 }
 .Hospital_info {
   width: 100%;
   padding: 10px;
+  /* border: 1px solid black; */
+  min-height: 100px;
+  text-align: start;
 }
 .Hospital_info span {
   word-wrap: break-word;
+}
+.Confirm_details {
+  /* border: 1px solid black; */
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.patientinfo_top span {
+  height: 30px;
+  /* border: 1px solid black; */
+  font-size: 24px;
+  font-weight: 500;
+}
+.patientinfo_top {
+  font-size: 14px;
+  font-weight: 500;
+}
+.patient_inputs {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  height: 40px;
+  margin-bottom: 10px;
+}
+.patient_inputs input {
+  margin-right: 10px;
+}
+#provide_info {
+  margin-top: 20px;
+}
+.Patient_info_inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.Patient_info_inputs input {
+  height: 40px;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+}
+.paitent_whatsapp_check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* border: 1px solid black; */
+  height: 40px;
+}
+.paitent_whatsapp_check input {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.patientinfo_button {
+  /* border: 1px solid black; */
+  margin-top: 20px;
+}
+.patientinfo_button button {
+  width: 100%;
+  background-color: #199fd9;
+  color: white;
+  font-size: 14px;
+  padding: 4px 0 8px;
+  border: none;
+  border-radius: 5px;
+}
+
+@media all and (max-width: 500px) {
+  /* .confirm_container {
+    display: flex;
+    justify-content: center;
+  } */
+  .confirminfo {
+    margin: 0;
+  }
 }

@@ -50,8 +50,8 @@ const doctorschema = new mongoose.Schema({
             type:Object
         }]
     },
-    bookvisible:{
-        type:String
+    bookingvisible:{
+        type:Boolean
     }
 })
 

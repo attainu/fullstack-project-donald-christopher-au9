@@ -7,6 +7,7 @@ import Datebooking from "./Datebooking";
 import Modal from 'react-modal';
 const alldoctors ='http://localhost:1111/doctors'
 const likeurl ='http://localhost:1111/doctors/editlike/'
+const bookingvisible ='http://localhost:1111/doctors/doctorbooking/'
 
 class Doctorlist extends Component{
   constructor()
@@ -14,17 +15,19 @@ class Doctorlist extends Component{
     super()
     this.state={
       doctors:'',
-      appointmentvisible:"none"
+      appointmentvisible:"",
+      position:''
     }
   }
   likehandler=(id)=>
   {
     axios.put(`${likeurl}${id}`).then(()=>axios.get(alldoctors).then(res=>this.setState({doctors:res.data})))
   }
-  appointmenthandler=()=>
+  appointmenthandler=(value,id)=>
   {
-      const ans = this.state.appointmentvisible==="none"?"block":"none"
-      this.setState({appointmentvisible:ans})
+
+    // console.log(ans)
+    axios.put(`${bookingvisible}${id}`).then(()=>axios.get(alldoctors).then(res=>this.setState({doctors:res.data})))
   }
   renderdoctors=(data)=>
   {
@@ -65,15 +68,15 @@ class Doctorlist extends Component{
               </div>
           <div className="Doctor_card_button_appoint">
             {doctor.leavestatus && <button id='appointment' style={{backgroundColor:'skyblue'}}disabled >Book appointment</button>}
-            {!doctor.leavestatus && <button  id='appointment'style={{backgroundColor:'#14bef0'}}  onClick={this.appointmenthandler}>Book appointment</button>}
+            {!doctor.leavestatus && <button  id='appointment'style={{backgroundColor:'#14bef0'}}  onClick={()=>this.appointmenthandler(doctor.bookingvisible,doctor._id)}>Book appointment</button>}
             <button id='video'>Video Consult</button>
           </div>
         </div>
        
       </div>
-      <div style={{display:this.state.appointmentvisible}}>
+       {doctor.bookingvisible && <div>
         <Datebooking id={doctor._id }/>
-        </div>
+        </div>}
       </div>
       ))
     }
@@ -82,22 +85,42 @@ class Doctorlist extends Component{
   {
     // console.log(this.state.doctors)
   return (
-    <div className="Doctorlist_main_container">
+    <div >
       <Navbar/>
       <Nav3/>
-      <div className="Doctorlist_container">
-          <div className="Doctorlist_container_text">
-            <h1>Book from 109 cosmetic/aesthetic dentist in Bangalore</h1>
-            <p>With predicted wait-time & verified details</p>
-            {this.renderdoctors(this.state.doctors)}
+      <div className="Doctorlist_main_container">
+          <div className="Doctorlist_container">
+                <div className="Doctorlist_container_text">
+                  <div className='doctor_card_header'>
+                  <span>Book from 109 cosmetic/aesthetic dentist in Bangalore</span>
+                  <p>With predicted wait-time & verified details</p>
+                  </div>
+                  {this.renderdoctors(this.state.doctors)}
+                </div>
           </div>
+          <div className='doctor_rightside' style={{position:this.state.position}}>
+            <img src='https://www.practostatic.com/web-assets/images/maps/bangalore.f18ea957144c.png' alt='/'/>
           </div>
-          </div>
-
+      </div>
+        
+      </div>
   );}
   componentDidMount()
   {
     axios.get(alldoctors).then(res=>this.setState({doctors:res.data}))
+    window.addEventListener('scroll',()=>
+    {
+      if(window.scrollY>200)
+      {
+        this.setState({position:"fixed"})
+      }
+      else
+      {
+        this.setState({position:"relative"})
+      }
+    })
+ 
+    // console.log(height)
 
   }
   
