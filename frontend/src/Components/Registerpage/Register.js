@@ -33,6 +33,10 @@ class Register extends Component
                         <span>Create Password</span>
                         <input placeholder='Password'/>
                     </div>
+                    <div className='create_password'>
+                        <span>City</span>
+                        <input placeholder='City'/>
+                    </div>
                     <div className='Term'>
                         <input type='checkbox'/>
                         <div>
@@ -40,7 +44,7 @@ class Register extends Component
                         </div>
                     </div>
                     <div className='send_otp_button'>
-                        <button>Send otp</button>
+                        <button>Sign up</button>
                     </div>
             </div>
         )

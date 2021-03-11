@@ -84,7 +84,7 @@ class Confirmappointment extends Component {
                                     <input placeholder=''/>
                                 </div>
                                 <div className='paitent_whatsapp_check'>
-                                    <input type='checked'/>
+                                    <input type='checkbox'/>
                                     <span>Get updates in whatsapp number 8886833905</span>
                                 </div>
                                 <div className='patientinfo_button'>

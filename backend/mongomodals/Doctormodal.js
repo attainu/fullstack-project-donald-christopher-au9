@@ -4,6 +4,9 @@ const doctorschema = new mongoose.Schema({
     fullname:{
         type:String
     },
+    password:{
+        type:String
+    },
     profileimg:{
         type:String
     },
@@ -52,6 +55,15 @@ const doctorschema = new mongoose.Schema({
     },
     bookingvisible:{
         type:Boolean
+    },
+    address:{
+        type:String
+    },
+    role:{
+        type:String
+    },
+    email:{
+        type:String
     }
 })
 

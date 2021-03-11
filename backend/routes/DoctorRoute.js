@@ -10,9 +10,38 @@ Doctorroute.get('/',(req,res)=>
 
 Doctorroute.post('/register',(req,res)=>
 {
-    const data = {...req.body,leavestatus:req.body.leavestatus?req.body.leavestatus:false,gender:req.body.gender?req.body.gender:"M",cost:req.body.cost?req.body.cost:null,specialisation:req.body.specialisation?req.body.specialisation:null,profileimg:req.body.profileimg?req.body.profileimg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR7TEM9d91DuHZgbmbtlx4tlSl-FJQKvREDA&usqp=CAU',likes:req.body.likes?req.body.likes:0,slot:req.body.slot?req.body.slot:'',bookingvisible:false}
-    const doctordata = new doctor(data)
-    doctordata.save().then(()=>res.send('success'))
+    const data = {
+        ...req.body,
+        email:req.body.email,
+        leavestatus:req.body.leavestatus?req.body.leavestatus:false,
+        gender:req.body.gender?req.body.gender:"M",
+        cost:req.body.cost?req.body.cost:null,
+        specialisation:req.body.specialisation?req.body.specialisation:null,
+        profileimg:req.body.profileimg?req.body.profileimg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR7TEM9d91DuHZgbmbtlx4tlSl-FJQKvREDA&usqp=CAU',
+        likes:req.body.likes?req.body.likes:0,
+        slot:req.body.slot?req.body.slot:'',
+        bookingvisible:false,
+        experience:req.body.experience?req.body.experience:0,
+        role:"doctor",
+        registered:req.body.registered?req.body.registered:false
+    }
+    // console.log(data.email)
+    doctor.findOne({email:data.email}).then(result=>
+        {
+            // console.log(result)
+            if(result)
+            {
+                return res.send("Exisiting Email address")
+            }
+            else
+            {
+                const doctordata = new doctor(data)
+                doctordata.save().then((e)=>res.send(''))
+                // console.log("no")
+
+            }
+        })
+
 })
 
 Doctorroute.put('/editlike/:id',(req,res)=>

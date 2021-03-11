@@ -1,7 +1,7 @@
 .Register_container {
   border: 1px solid rgb(226, 223, 223);
   padding: 12px 20px;
-  height: 450px;
+  height: max-content;
 }
 .Top_header {
   display: flex;
@@ -23,6 +23,15 @@
 }
 .Fullname span {
   font-size: 15px;
+}
+.abc {
+  display: flex;
+  padding: 10px 20px;
+  /* justify-content: center; */
+  align-items: center;
+}
+.abc input {
+  margin: 0 20px;
 }
 .Fullname input {
   padding: 3px;

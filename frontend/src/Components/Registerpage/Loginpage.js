@@ -2,6 +2,11 @@ import React from 'react'
 import './Loginpage.css'
 import {AiFillFacebook} from 'react-icons/ai'
 const Loginpage = () => {
+    const facebookhandler=()=>
+    {
+        window.location.href='http://localhost:1111/facebook/auth/facebook'
+        // console.log("clicked")
+    }
     return (
         <div className='Login_container'>
             <div className='Login_mobile'>
@@ -26,7 +31,7 @@ const Loginpage = () => {
             </div>
             <hr/>
             <div className='facebook_login'>
-                <button><AiFillFacebook style={{height:'30px',width:"30px"}}/>connect with facebook</button>
+                <button onClick={facebookhandler}><AiFillFacebook style={{height:'30px',width:"30px"}}/>connect with facebook</button>
             </div>
         </div>
     )

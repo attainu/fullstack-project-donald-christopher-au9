@@ -142,6 +142,7 @@
   /* border: 1px solid white; */
   width: 70%;
   flex-wrap: wrap;
+  position: relative;
   /* padding-left: -10%; */
   justify-content: space-around;
 }
@@ -246,6 +247,77 @@
 .profile_list li {
   list-style: none;
 }
+#nav3_drop_1 {
+  position: relative;
+}
+.nav3_dropdown_1 {
+  position: absolute;
+  background-color: white;
+  color: black;
+  width: 170px;
+  right: 10%;
+  top: 120%;
+  z-index: 1;
+}
+.nav3_dropdown_1 li {
+  border-bottom: 1px solid grey;
+  height: 30px;
+  list-style: none;
+  padding: 4px 15px;
+  font-size: 14px;
+}
+#nav3_relevance {
+  position: relative;
+}
+
+.nav3_dropdown_relevance {
+  position: absolute;
+  background-color: white;
+  color: black;
+  width: 170px;
+  right: 10%;
+  top: 120%;
+  z-index: 1;
+}
+.nav3_dropdown_relevance li {
+  border-bottom: 1px solid grey;
+  height: 30px;
+  list-style: none;
+  padding: 4px 15px;
+  font-size: 14px;
+}
+/* .checkbox2 {
+  position: relative;
+} */
+.nav3_allfilter {
+  position: absolute;
+  background-color: #28328c;
+  width: 100%;
+  top: 110%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  z-index: 1;
+  left: 0%;
+}
+.nav3_gender {
+  margin-right: 3rem;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.nav3_gender_inputs {
+  height: 25px;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-around; */
+  /* background-color: black; */
+}
+.nav3_gender_inputs input {
+  margin-right: 10px;
+}
 
 @media all and (max-width: 1150px) {
   .Nav_middle {
@@ -302,7 +374,7 @@
   .profile_list {
     position: absolute;
     top: 16%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 180px;
     height: 200px;
     transition-delay: 1s;
