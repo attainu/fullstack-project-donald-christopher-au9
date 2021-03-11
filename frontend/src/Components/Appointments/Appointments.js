@@ -19,6 +19,7 @@ class Appointments extends Component {
 
     render()
     {
+
         return (
             <div className='Appointments_body'>
                 <div className='Appointments_container'>

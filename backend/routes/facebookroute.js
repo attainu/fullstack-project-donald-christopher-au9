@@ -15,7 +15,7 @@ passport.deserializeUser((user, cb) => cb(null, user))
 
 facebookroute.get('/profile',(req,res)=>
 {
-    res.send(userprofile.displayName)
+    res.send(userprofile)
 })
 
 
@@ -32,11 +32,12 @@ passport.use(new FacebookStrategy({
 ));
   
 facebookroute.get('/auth/facebook',
-  passport.authenticate('facebook',{scope:"email"}));
+  passport.authenticate('facebook'));
 
   facebookroute.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
       successRedirect:'http://localhost:3000',
+      // successRedirect:'/facebook/profile',
       failureRedirect:'/error'
   }))
 

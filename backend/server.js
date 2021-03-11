@@ -5,6 +5,7 @@ const parser = require('body-parser')
 const cors = require("cors")
 const Doctorroute = require("./routes/DoctorRoute")
 const facebookroute = require("./routes/facebookroute")
+const Userroute = require("./routes/Userroute")
 require('./Database/mongoose')
 app.use(parser.urlencoded({extended:true}))
 app.use(parser.json())
@@ -18,7 +19,7 @@ app.get('/error',(req,res)=>
     res.send("not valid")
 })
 app.use('/doctors',Doctorroute)
-
+app.use('/user',Userroute)
 app.use('/facebook',facebookroute)
 
 app.listen(port,()=>console.log(`Server is on ${port}`))
