@@ -4,9 +4,11 @@ import Nav3 from "../Navbar/Nav3";
 import Navbar from "../Navbar/Navbar";
 import axios from "axios";
 import Datebooking from "./Datebooking";
-const alldoctors = "http://localhost:1111/doctors";
+const alldoctors = "http://localhost:1111/doctors/getquery";
+const doctors = "http://localhost:1111/doctors";
 const likeurl = "http://localhost:1111/doctors/editlike/";
 const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
+const queryString = require("query-string");
 
 class Doctorlist extends Component {
   constructor() {
@@ -14,6 +16,7 @@ class Doctorlist extends Component {
     this.state = {
       doctors: "",
       position: "",
+      nodata: "",
     };
   }
   likehandler = (id) => {
@@ -141,6 +144,13 @@ class Doctorlist extends Component {
                 </span>
                 <p>With predicted wait-time & verified details</p>
               </div>
+              {this.state.nodata && (
+                <img
+                  src="https://freefrontend.com/assets/img/html-css-404-page-templates/Simple-Pure-CSS3-404-Error-Page.gif"
+                  alt="/"
+                  style={{ width: "100%", height: "50vh" }}
+                />
+              )}
               {this.renderdoctors(this.state.doctors)}
             </div>
           </div>
@@ -158,7 +168,6 @@ class Doctorlist extends Component {
     );
   }
   componentDidMount() {
-    axios.get(alldoctors).then((res) => this.setState({ doctors: res.data }));
     window.addEventListener("scroll", () => {
       if (window.scrollY > 200) {
         this.setState({ position: "fixed" });
@@ -166,8 +175,18 @@ class Doctorlist extends Component {
         this.setState({ position: "relative" });
       }
     });
+    const queries = queryString.parse(this.props.location.search);
+    axios
+      .get(`${alldoctors}?city=${queries.cityname}&type=${queries.type}`)
+      // .then((r) => console.log(r.data));
+      .then((res) =>
+        this.setState({
+          doctors: res.data.success,
+          nodata: res.data.error,
+        })
+      );
 
-    // console.log(height)
+    // console.log(url.substring(url.indexOf("?") + 1));
   }
 }
 

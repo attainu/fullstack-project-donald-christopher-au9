@@ -42,4 +42,5 @@ Userroute.put("/addappointment/:id", (req, res) => {
 Userroute.get("/:id", (req, res) => {
   doctor.findById(req.params.id).then((r) => res.send(r));
 });
+
 module.exports = Userroute;

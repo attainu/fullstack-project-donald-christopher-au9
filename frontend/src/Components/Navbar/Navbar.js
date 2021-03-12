@@ -6,33 +6,18 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Nav2 from "./Nav2";
+const allcities = "http://localhost:1111/city/all";
+const specialisationurl = "http://localhost:1111/city/special";
 class Navbar extends Component {
   constructor() {
     super();
     this.state = {
-      City_searchlist: "none",
-      cancelsearch_city: "none",
-      hospital_searchlist: "none",
-      cancelsearch_hospital: "none",
       profiledisplay: "none",
     };
   }
-  Citysearchhandler = () => {
-    const ans = this.state.City_searchlist === "none" ? "block" : "none";
-    const cancelsearch_city =
-      this.state.City_searchlist === "none" ? "block" : "none";
-    this.setState({
-      City_searchlist: ans,
-      cancelsearch_city: cancelsearch_city,
-    });
-  };
-  hospitalhandler = () => {
-    const hospital_searchlist =
-      this.state.hospital_searchlist === "none" ? "block" : "none";
-    const cancelsearch_hospital =
-      this.state.hospital_searchlist === "none" ? "block" : "none";
-    this.setState({ hospital_searchlist, cancelsearch_hospital });
-  };
+  // make login button visible
   profilehandler = () => {
     const ans = this.state.profiledisplay === "none" ? "block" : "none";
     this.setState({ profiledisplay: ans });
@@ -104,55 +89,15 @@ class Navbar extends Component {
           </div>
         </div>
         <hr style={{ color: "grey" }} />
-        <div className="Nav2">
-          <div className="Nav_inputs">
-            <div className="Nav_input_search" id="city_input">
-              <input placeholder="Cityname" onClick={this.Citysearchhandler} />
-              <IoLocationOutline className="icon_city" />
-              <MdCancel
-                className="City_Inputcancel"
-                style={{ display: this.state.cancelsearch_city }}
-                onClick={this.Citysearchhandler}
-              />
-              <div
-                className="Nav_input_search_list"
-                style={{ display: this.state.City_searchlist }}
-              >
-                <li>lkafhasdf</li>
-                <li>lkafhasdf</li>
-                <li>lkafhasdf</li>
-                <li>lkafhasdf</li>
-              </div>
-            </div>
-            <div className="Nav_input_search" id="hospital_input">
-              <input placeholder="Specisation" onClick={this.hospitalhandler} />
-              <IoIosSearch className="icon_spec" />
-              <MdCancel
-                className="Hospital_Inputcancel"
-                style={{ display: this.state.cancelsearch_hospital }}
-                onClick={this.hospitalhandler}
-              />
-              <div
-                className="Nav_input_search_list"
-                style={{ display: this.state.hospital_searchlist }}
-              >
-                <li>lkafhasdf</li>
-                <li>lkafhasdf</li>
-                <li>lkafhasdf</li>
-                <li>lkafhasdf</li>
-              </div>
-            </div>
-          </div>
-          <div className="Nav2_text">
-            <span>Fed up of endless wait?</span>
-            <p>
-              Look for clinic with <strong className="prime">Prime</strong>
-              <GoVerified className="icons" style={{ margin: "5px" }} />{" "}
-            </p>
-          </div>
-        </div>
+        <Nav2 />
       </div>
     );
+  }
+  componentDidMount() {
+    axios.get(allcities).then((r) => this.setState({ cities: r.data }));
+    axios
+      .get(specialisationurl)
+      .then((r) => this.setState({ allspecialisations: r.data }));
   }
 }
 

@@ -110,4 +110,27 @@ Doctorroute.put("/doctorbooking/:id", (req, res) => {
   });
 });
 
+Doctorroute.get("/getquery", (req, res) => {
+  // res.send(req.query.specialisation);
+  const cityname = req.query.city;
+  const type = req.query.type;
+  const role = "Doctor";
+  // console.log(cityname, type, role);
+  doctor
+    .find({
+      city: "Hyderabad",
+      role: role,
+      specialisation: type,
+    })
+    .then((r) => {
+      if (r.length === 0) {
+        res.send({
+          error: "no data found",
+          success: "",
+        });
+      } else {
+        res.send({ error: "", success: r });
+      }
+    });
+});
 module.exports = Doctorroute;

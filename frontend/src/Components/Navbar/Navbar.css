@@ -198,12 +198,12 @@
 .City_Inputcancel {
   position: absolute;
   right: 2%;
-  top: 8%;
+  top: 10px;
 }
 .Hospital_Inputcancel {
   position: absolute;
   right: 2%;
-  top: 8%;
+  top: 10px;
 }
 .icon_city {
   /* border: 1px solid black; */
@@ -227,7 +227,14 @@
   font-size: 20px;
   list-style: none;
   padding-left: 30px;
-  height: max-content;
+  max-height: 300px;
+  overflow-y: scroll;
+  /* border: 1px solid black; */
+}
+.Nav_input_search_list li
+{
+  border-bottom: 1px solid grey;
+  height: 35px;
 }
 .Profile_dropdown {
   position: relative;
