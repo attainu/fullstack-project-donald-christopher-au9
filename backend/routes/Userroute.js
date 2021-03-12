@@ -4,16 +4,38 @@ const Userroute = express.Router();
 const doctor = require("../mongomodals/Doctormodal");
 
 Userroute.put("/addappointment/:id", (req, res) => {
-  let data = { ...req.body };
+  const userid = req.params.id;
+  const doctorid = req.body.doctor._id;
+  const appointslot = req.body.slot[0];
+  const patientname = req.body.patientname;
+  const doctorname = req.body.doctor.fullname;
   doctor
-    .findOneAndUpdate(req.params.id, {
-      $push: { appointments: data },
+    .findByIdAndUpdate(doctorid, {
+      $push: {
+        appointments: {
+          patientname,
+          slot: appointslot,
+          userid,
+        },
+      },
     })
-    .then(() =>
+    .then((doctordata) =>
       doctor
-        .findById(req.params.id)
+        .findByIdAndUpdate(userid, {
+          $push: {
+            appointments: {
+              doctorname,
+              slot: appointslot,
+              doctorid,
+            },
+          },
+        })
         .then((r) =>
-          res.send({ message: "User appointment confirmed", result: r })
+          res.send({
+            doctordata: doctordata,
+            userdata: r,
+            confirmationmsg: "yes",
+          })
         )
     );
 });

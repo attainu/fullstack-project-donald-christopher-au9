@@ -17,6 +17,7 @@ class Confirmappointment extends Component {
       email: sessionStorage.getItem("email"),
       patientname: "",
       confirmationmsg: "",
+      slot: "",
     };
   }
   changehandler = (e) => {
@@ -25,19 +26,17 @@ class Confirmappointment extends Component {
   submithandler = () => {
     // console.log(this.state)
     axios
-      .put(`${addappintment}/${this.state.userid}`, this.state)
+      .put(
+        `${addappintment}/${this.state.userid}?docid=${this.state.doctor._id}`,
+        this.state
+      )
+      // .then((r) => console.log(r.data.confirmationmsg));
       .then((res) => {
-        this.setState({ confirmationmsg: res.data.message });
+        this.setState({ confirmationmsg: res.data.confirmationmsg });
         setTimeout(() => {
           this.props.history.push("/doctorlist");
         }, 2000);
       });
-  };
-  renderpage = (name, data) => {
-    console.log(name, data);
-    if (name) {
-      return <li>{name}</li>;
-    }
   };
   renderdata = (data) => {
     if (data) {
@@ -96,7 +95,7 @@ class Confirmappointment extends Component {
                       <input
                         type="radio"
                         name="patientname"
-                        value="Alfred Richards"
+                        value={sessionStorage.getItem("username")}
                       />
                       {sessionStorage.getItem("username") && (
                         <label>{sessionStorage.getItem("username")}</label>
@@ -153,7 +152,7 @@ class Confirmappointment extends Component {
     }
   };
   render() {
-    // console.log(this.state.patientname)
+    // console.log(this.state.slot);
     return (
       <div className="Main_confirm_container">
         {this.renderdata(this.state.doctor)}
@@ -175,6 +174,7 @@ class Confirmappointment extends Component {
         doctor: res.data,
         doctorid: res.data._id,
         doctorname: res.data.fullname,
+        slot: res.data.slot,
       })
     );
   }
