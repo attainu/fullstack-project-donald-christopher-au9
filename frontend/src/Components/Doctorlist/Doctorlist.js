@@ -4,8 +4,8 @@ import Nav3 from "../Navbar/Nav3";
 import Navbar from "../Navbar/Navbar";
 import axios from "axios";
 import Datebooking from "./Datebooking";
-const alldoctors = "http://localhost:1111/doctors/getquery";
-const doctors = "http://localhost:1111/doctors";
+const alldoctors = "http://localhost:1111/doctors";
+const disable = "http://localhost:1111/user/disable";
 const likeurl = "http://localhost:1111/doctors/editlike/";
 const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
 const queryString = require("query-string");
@@ -79,8 +79,7 @@ class Doctorlist extends Component {
                 id="Doctor_specilisation_text"
               >
                 <span>
-                  {doctor.specialisation}
-                  <span>specialisation</span>
+                  {doctor.specialisation}-<span>specialisation</span>
                 </span>
               </div>
               <hr />
@@ -168,25 +167,23 @@ class Doctorlist extends Component {
     );
   }
   componentDidMount() {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) {
-        this.setState({ position: "fixed" });
-      } else {
-        this.setState({ position: "relative" });
-      }
+    axios.get(alldoctors).then((r) => {
+      this.setState({ doctors: r.data });
     });
-    const queries = queryString.parse(this.props.location.search);
-    axios
-      .get(`${alldoctors}?city=${queries.cityname}&type=${queries.type}`)
-      // .then((r) => console.log(r.data));
-      .then((res) =>
-        this.setState({
-          doctors: res.data.success,
-          nodata: res.data.error,
-        })
-      );
-
-    // console.log(url.substring(url.indexOf("?") + 1));
+    const windowheight = window.innerHeight;
+    if (windowheight > 800) {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 200) {
+          this.setState({ position: "fixed" });
+        } else {
+          this.setState({ position: "relative" });
+        }
+      });
+    }
+    // console.log(windowheight);
+  }
+  componentWillUnmount() {
+    axios.put(disable);
   }
 }
 

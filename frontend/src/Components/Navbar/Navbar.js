@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import "./Navbar.css";
-import { GoVerified } from "react-icons/go";
+
 import { BiChevronDown } from "react-icons/bi";
-import { IoLocationOutline } from "react-icons/io5";
-import { MdCancel } from "react-icons/md";
-import { IoIosSearch } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import Nav2 from "./Nav2";
 const allcities = "http://localhost:1111/city/all";
@@ -18,9 +15,13 @@ class Navbar extends Component {
     };
   }
   // make login button visible
-  profilehandler = () => {
+  set_profile_dropdwon = () => {
     const ans = this.state.profiledisplay === "none" ? "block" : "none";
     this.setState({ profiledisplay: ans });
+  };
+  logouthandler = () => {
+    sessionStorage.removeItem("username");
+    this.props.history.push("/");
   };
 
   render() {
@@ -59,6 +60,14 @@ class Navbar extends Component {
             </div>
           </div>
           <div className="Nav_right">
+            <div className="names" id="alldoctors">
+              <Link
+                to="/doctorlist"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <p>Doctors</p>
+              </Link>
+            </div>
             <div className="names">
               <span>For providers</span>
               <BiChevronDown />
@@ -72,19 +81,29 @@ class Navbar extends Component {
                 <button>Login / Signup</button>
               </Link>
             )}
+
             {sessionStorage.getItem("username") && (
-              <Link to="/authpage/login">
-                <button>{sessionStorage.getItem("username")}</button>
-              </Link>
+              <span
+                onClick={this.set_profile_dropdwon}
+                style={{ cursor: "pointer" }}
+              >
+                {sessionStorage.getItem("username")}
+                <BiChevronDown />
+              </span>
             )}
             <div
               className="profile_list"
               style={{ display: this.state.profiledisplay }}
             >
-              <li>a</li>
-              <li>a</li>
-              <li>a</li>
-              <li>a</li>
+              <Link
+                to="/appointments"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {" "}
+                <li>Appointments</li>
+              </Link>
+              <li>Profile</li>
+              <li onClick={this.logouthandler}>Logout</li>
             </div>
           </div>
         </div>
@@ -94,11 +113,8 @@ class Navbar extends Component {
     );
   }
   componentDidMount() {
-    axios.get(allcities).then((r) => this.setState({ cities: r.data }));
-    axios
-      .get(specialisationurl)
-      .then((r) => this.setState({ allspecialisations: r.data }));
+    console.log("mounted");
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

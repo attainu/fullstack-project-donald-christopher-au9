@@ -6,9 +6,12 @@ const doctor = require("../mongomodals/Doctormodal");
 Userroute.put("/addappointment/:id", (req, res) => {
   const userid = req.params.id;
   const doctorid = req.body.doctor._id;
-  const appointslot = req.body.slot[0];
+  const appointslot = req.body.slot;
   const patientname = req.body.patientname;
   const doctorname = req.body.doctor.fullname;
+  const doctorimg = req.body.doctorimg;
+  const specialisation = req.body.specialisation;
+  // console.log(specialisation);
   doctor
     .findByIdAndUpdate(doctorid, {
       $push: {
@@ -16,6 +19,8 @@ Userroute.put("/addappointment/:id", (req, res) => {
           patientname,
           slot: appointslot,
           userid,
+          profileimg: doctorimg,
+          specialisation,
         },
       },
     })
@@ -27,6 +32,7 @@ Userroute.put("/addappointment/:id", (req, res) => {
               doctorname,
               slot: appointslot,
               doctorid,
+              specialisation,
             },
           },
         })
@@ -41,6 +47,11 @@ Userroute.put("/addappointment/:id", (req, res) => {
 });
 Userroute.get("/:id", (req, res) => {
   doctor.findById(req.params.id).then((r) => res.send(r));
+});
+Userroute.put("/disable", (req, res) => {
+  doctor
+    .updateMany({ bookingvisible: false })
+    .then((r) => res.send("disabled"));
 });
 
 module.exports = Userroute;

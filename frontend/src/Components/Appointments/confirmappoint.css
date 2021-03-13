@@ -77,30 +77,26 @@
 }
 .confirm_docinfo {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 16px;
   flex-wrap: wrap;
   /* border: 1px solid black; */
 }
-.doc_img {
+#hospital_name
+{
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#doctorimg img{
   width: 100px;
   height: 100px;
   object-fit: cover;
-}
-.doc_img img {
-  width: 100px;
-  height: 100px;
-}
-.docinfo {
   /* border: 1px solid black; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  flex-direction: column;
-  text-align: center;
-  width: 150px;
-  /* line-height: 15px; */
 }
+
 .Hospital_info {
   width: 100%;
   padding: 10px;

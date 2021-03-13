@@ -83,9 +83,12 @@ class Nav2 extends Component {
     });
     // console.log(this.state, hospital);
     if (this.state.City_inputvalue2 && this.state.hospital_inputvalue2) {
-      this.props.history.push(
-        `/doctorlist?cityname=${this.state.City_inputvalue2}&type=${this.state.hospital_inputvalue2[0].specialisation}`
+      sessionStorage.setItem("cityname", this.state.City_inputvalue2);
+      sessionStorage.setItem(
+        "specs",
+        this.state.hospital_inputvalue2[0].specialisation
       );
+      this.props.history.push("/doctorlist");
     } else {
       console.log("no");
     }

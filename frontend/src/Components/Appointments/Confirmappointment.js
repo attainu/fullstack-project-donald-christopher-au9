@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./confirmappoint.css";
 import { Link } from "react-router-dom";
 import Loginpage from "../Registerpage/Loginpage";
+import Smallnav from "./Smallnav";
 const docdata = "http://localhost:1111/doctors/docdata";
 const addappintment = "http://localhost:1111/user/addappointment";
 class Confirmappointment extends Component {
@@ -18,6 +19,8 @@ class Confirmappointment extends Component {
       patientname: "",
       confirmationmsg: "",
       slot: "",
+      doctorimg: "",
+      specialisation: "",
     };
   }
   changehandler = (e) => {
@@ -42,16 +45,7 @@ class Confirmappointment extends Component {
     if (data) {
       return (
         <div className="confirmappoint_container">
-          <div className="confirm_nav">
-            <Link to="/">
-              <img
-                src="https://i2.wp.com/www.cosmoderma.healios.co.in/wp-content/uploads/2019/04/practo.png?fit=1586%2C1057"
-                alt="/"
-              />
-            </Link>
-            {sessionStorage.getItem("username") &&
-              sessionStorage.getItem("username")}
-          </div>
+          <Smallnav />
           <div className="confirm_container">
             <div className="confirminfo">
               <div className="confirm_top">
@@ -59,25 +53,58 @@ class Confirmappointment extends Component {
               </div>
               <hr />
               <div className="confirm_dateinfo">
-                <span>{data.slot[0].date}</span>
-                <span>{data.slot[0].time}</span>
+                <span>Date:-{sessionStorage.getItem("slot_date")}</span>
+                <span>Time:-{sessionStorage.getItem("slot_time")}</span>
               </div>
               <hr />
               <div className="confirm_docinfo">
-                <div className="doc_img">
-                  <img src={data.profileimg} alt="/" />
+                <div id="doctorimg">
+                  <img src={this.state.doctor.profileimg} alt=""></img>
                 </div>
-                <div className="docinfo">
-                  <span>
-                    <strong>{data.fullname}</strong>
-                  </span>
-                  <span>{data.experience}</span>
-                  <span>{data.specialisation}</span>
+                <div id="Doctor_card_info">
+                  <div id="Doctor_name">
+                    <span>{this.state.doctor.fullname}</span>
+                  </div>
+                  <div
+                    className="Doctor_specilisation"
+                    id="Doctor_specilisation_text"
+                  >
+                    <span>{this.state.doctor.specialisation}</span>
+                  </div>
+                  <div
+                    className="Doctor_experience"
+                    id="Doctor_specilisation_text"
+                  >
+                    <span>
+                      {this.state.doctor.experience} years of experience overall
+                    </span>
+                  </div>
+
+                  <div
+                    className="Doctor_hospital_fee"
+                    id="Doctor_specilisation_text"
+                  >
+                    <span>
+                      {this.state.doctor.cost}₹ Cosultation fee at clinic
+                    </span>
+                  </div>
+                  <div
+                    className="Doctor_hospital_fee"
+                    id="Doctor_specilisation_text"
+                  >
+                    <span>
+                      {this.state.doctor.specialisation}-
+                      <span>specialisation</span>
+                    </span>
+                  </div>
                 </div>
               </div>
               <hr />
-              <div className="Hospital_info">
-                <span>{data.hospitalname}</span>
+              <div className="Doctor_hospital_name" id="hospital_name">
+                <strong style={{ marginRight: "8px" }}>
+                  {this.state.doctor.hospitalname} .
+                </strong>
+                {this.state.doctor.city}
               </div>
             </div>
             <div className="Confirm_details">
@@ -152,7 +179,10 @@ class Confirmappointment extends Component {
     }
   };
   render() {
-    // console.log(this.state.slot);
+    console.log(this.state);
+    if (!sessionStorage.getItem("slot_date")) {
+      this.props.history.push(`/doctorlist`);
+    }
     return (
       <div className="Main_confirm_container">
         {this.renderdata(this.state.doctor)}
@@ -169,14 +199,24 @@ class Confirmappointment extends Component {
   }
   componentDidMount() {
     const id = this.props.match.params.id;
+    console.log(id);
     axios.get(`${docdata}/${id}`).then((res) =>
       this.setState({
         doctor: res.data,
         doctorid: res.data._id,
         doctorname: res.data.fullname,
-        slot: res.data.slot,
+        slot: {
+          time: sessionStorage.getItem("slot_time"),
+          date: sessionStorage.getItem("slot_date"),
+        },
+        doctorimg: res.data.profileimg,
+        specialisation: res.data.specialisation,
       })
     );
+  }
+  componentWillUnmount() {
+    sessionStorage.removeItem("slot_time");
+    sessionStorage.removeItem("slot_date");
   }
 }
 
