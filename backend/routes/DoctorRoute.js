@@ -82,22 +82,6 @@ Doctorroute.post("/login", (req, res) => {
   });
 });
 
-Doctorroute.put("/addslot/:id", (req, res) => {
-  const id = req.params.id;
-  const slot = req.query.slot;
-  const date = req.query.date;
-  doctor
-    .findByIdAndUpdate(id, {
-      slot: [
-        {
-          date: date,
-          slot: slot,
-        },
-      ],
-    })
-    .then((r) => doctor.findById(id).then((result) => res.send(result)));
-});
-
 Doctorroute.get("/docdata/:id", (req, res) => {
   doctor.findById(req.params.id).then((r) => res.send(r));
 });

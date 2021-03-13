@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
 import "./confirmappoint.css";
-import { Link } from "react-router-dom";
 import Loginpage from "../Registerpage/Loginpage";
 import Smallnav from "./Smallnav";
 const docdata = "http://localhost:1111/doctors/docdata";
@@ -199,7 +198,7 @@ class Confirmappointment extends Component {
   }
   componentDidMount() {
     const id = this.props.match.params.id;
-    console.log(id);
+    // console.log(id);
     axios.get(`${docdata}/${id}`).then((res) =>
       this.setState({
         doctor: res.data,

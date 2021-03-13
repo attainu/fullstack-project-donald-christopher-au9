@@ -1,7 +1,5 @@
-import React, { Component, Profiler } from "react";
 import "./Appointment.css";
-import { GiEgyptianProfile } from "react-icons/gi";
-import { AiOutlineMenu } from "react-icons/ai";
+import { Component } from "react";
 import axios from "axios";
 import Smallnav from "./Smallnav";
 import Appointments1 from "./Appointments1";
@@ -50,16 +48,17 @@ class Appointments extends Component {
                 <li>Profile</li>
               </Link>
               <Link
-                to="/appointments"
+                to="/appointments/appointments"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <li>Appointments</li>
               </Link>
             </div>
-
-            <Appointments1 props={this.state.users} />
-
-            {/* <Route path="/appointments/profile" exact component={Profilepage} /> */}
+            <Route
+              path="/appointments/appointments"
+              component={Appointments1}
+            />
+            <Route path="/appointments/profile" component={Profilepage} />
           </div>
         </div>
       </div>

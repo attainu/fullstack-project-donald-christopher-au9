@@ -408,6 +408,15 @@
     display: flex;
     padding-left: 50px;
   }
+ .city_icon
+ {
+   margin-right: 10px;
+ }
+ .citylist
+ {
+   display: flex;
+   /* justify-content: space-around; */
+ }
   .Nav_inputs {
     width: 100%;
     display: flex;

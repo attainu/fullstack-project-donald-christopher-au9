@@ -1,3 +1,4 @@
+const { ObjectID } = require("bson");
 const mongoose = require("mongoose");
 
 const doctorschema = new mongoose.Schema({
@@ -11,11 +12,7 @@ const doctorschema = new mongoose.Schema({
     type: String,
   },
   appointments: {
-    type: [
-      {
-        type: Object,
-      },
-    ],
+    type: [{ type: Object }],
   },
   number: {
     type: Number,

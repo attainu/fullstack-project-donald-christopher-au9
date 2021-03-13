@@ -16,6 +16,12 @@ class Smallnav extends Component {
     const ans = this.state.profiledisplay === "none" ? "block" : "none";
     this.setState({ profiledisplay: ans });
   };
+  logouthandler = () => {
+    const ans = this.state.profiledisplay === "none" ? "block" : "none";
+    this.setState({ profiledisplay: ans });
+    sessionStorage.removeItem("username");
+    this.props.history.push("/");
+  };
   render() {
     return (
       <div>
@@ -46,6 +52,8 @@ class Smallnav extends Component {
               <li>Appointments</li>
             </Link>
             <li>Profile</li>
+
+            <li onClick={this.logouthandler}>Logout</li>
           </div>
         </div>
       </div>

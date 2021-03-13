@@ -1,13 +1,15 @@
 .booking_container {
   /* border: 1px solid black; */
-  width: 100%;
+ width: auto;
   min-height: 250px;
   max-height: max-content;
 }
 .booking_top {
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
-  overflow-x: scroll;
+  overflow: scroll;
+  /* border: 1px solid black; */
 }
 ::-webkit-scrollbar {
   display: none;
@@ -19,17 +21,23 @@
   padding: 10px 0 5px;
   background-color: white;
 }
+
 .booking_top button:focus {
   border-bottom: 4px solid rgb(109, 150, 197);
 }
 .booking_slot {
+  
   display: flex;
   flex-direction: column;
   padding: 20px;
+
 }
 .morningblock {
   margin-bottom: 20px;
   display: flex;
+  width: auto;
+  
+  overflow: scroll;
   align-items: center;
   /* justify-content: space-between; */
 }
@@ -40,6 +48,7 @@
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  overflow: scroll;
   /* justify-content: space-between; */
 }
 .afternoontext {
@@ -67,12 +76,12 @@
 }
 @media all and (max-width: 600px) {
   .booking_container {
-    /* border: 1px solid black; */
-    margin-left: -40%;
-    width: 370px;
+    width: 100%;
   }
-  .booking_top {
-    display: flex;
+  .booking_top 
+  {
+    padding-left: 600px;
+    
   }
   .booking_top button {
     width: 180px;
@@ -84,7 +93,7 @@
   .booking_slot {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    /* padding: 20px; */
   }
 
   .morningtext {

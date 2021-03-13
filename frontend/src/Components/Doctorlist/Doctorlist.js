@@ -8,7 +8,6 @@ const alldoctors = "http://localhost:1111/doctors";
 const disable = "http://localhost:1111/user/disable";
 const likeurl = "http://localhost:1111/doctors/editlike/";
 const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
-const queryString = require("query-string");
 
 class Doctorlist extends Component {
   constructor() {
@@ -120,11 +119,7 @@ class Doctorlist extends Component {
               </div>
             </div>
           </div>
-          {doctor.bookingvisible && (
-            <div>
-              <Datebooking id={doctor._id} />
-            </div>
-          )}
+          {doctor.bookingvisible && <Datebooking id={doctor._id} />}
         </div>
       ));
     }

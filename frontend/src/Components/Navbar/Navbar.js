@@ -3,10 +3,9 @@ import "./Navbar.css";
 
 import { BiChevronDown } from "react-icons/bi";
 import { Link, withRouter } from "react-router-dom";
-import axios from "axios";
+
 import Nav2 from "./Nav2";
-const allcities = "http://localhost:1111/city/all";
-const specialisationurl = "http://localhost:1111/city/special";
+
 class Navbar extends Component {
   constructor() {
     super();
@@ -20,6 +19,8 @@ class Navbar extends Component {
     this.setState({ profiledisplay: ans });
   };
   logouthandler = () => {
+    const ans = this.state.profiledisplay === "none" ? "block" : "none";
+    this.setState({ profiledisplay: ans });
     sessionStorage.removeItem("username");
     this.props.history.push("/");
   };
@@ -96,14 +97,24 @@ class Navbar extends Component {
               style={{ display: this.state.profiledisplay }}
             >
               <Link
-                to="/appointments"
+                to="/appointments/appointments"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 {" "}
                 <li>Appointments</li>
               </Link>
-              <li>Profile</li>
-              <li onClick={this.logouthandler}>Logout</li>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/appointments/profile"
+              >
+                <li>Profile</li>
+              </Link>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={this.logouthandler}
+              >
+                <li>Logout</li>
+              </Link>
             </div>
           </div>
         </div>

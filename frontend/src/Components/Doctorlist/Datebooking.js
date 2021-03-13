@@ -1,10 +1,8 @@
 import "./Datebooking.css";
 
 import React, { Component } from "react";
-import axios from "axios";
 import { withRouter } from "react-router";
-import session from "express-session";
-const addslot = "http://localhost:1111/doctors/addslot/";
+
 class Datebooking extends Component {
   constructor() {
     super();
@@ -23,14 +21,14 @@ class Datebooking extends Component {
     this.props.history.push(`/confirmappointment/${this.props.id}`);
   };
   render() {
-    // console.log(this.state)
+    // console.log(this.state.day);
     return (
       <div
         className="booking_container"
         style={{ display: this.state.visiblity }}
       >
         <div className="booking_top">
-          <div>
+          <div className="button1">
             <button
               onClick={() =>
                 this.datehandler(

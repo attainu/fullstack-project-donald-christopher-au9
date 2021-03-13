@@ -3,10 +3,14 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 const registerurl = "http://localhost:1111/doctors/register";
+const allcities = "http://localhost:1111/city/all";
+const specialisationurl = "http://localhost:1111/city/special";
 class Register extends Component {
   constructor() {
     super();
     this.state = {
+      cities: "",
+      hospitals: "",
       fullname: "",
       experience: null,
       email: "",
@@ -26,7 +30,7 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   submithandler = () => {
-    console.log(this.state);
+    // console.log(this.state);
     axios.post(registerurl, this.state).then((res) => {
       console.log(res.data);
       this.setState({ error: res.data.emailerror });
@@ -35,7 +39,22 @@ class Register extends Component {
       }
     });
   };
+  rendercities = (data) => {
+    if (data) {
+      return data.map((city) => (
+        <option value={city.cityname}>{city.cityname}</option>
+      ));
+    }
+  };
+  renderspecs = (data) => {
+    if (data) {
+      return data.map((city) => (
+        <option value={city.specialisation}>{city.specialisation}</option>
+      ));
+    }
+  };
   render() {
+    // console.log(this.state.cities, this.state.hospitals);
     return (
       <div className="Register_container">
         <div className="Top_header">
@@ -83,12 +102,16 @@ class Register extends Component {
         </div>
         <div className="create_password">
           <span>City</span>
-          <input
-            placeholder="please enter city"
+          <select
             name="city"
-            value={this.state.city}
             onChange={this.changehandler}
-          />
+            value={this.state.city}
+          >
+            <option disabled selected>
+              Select your city
+            </option>
+            {this.rendercities(this.state.cities)}
+          </select>
         </div>
         <div className="create_password">
           <span>Hospital Name</span>
@@ -127,12 +150,16 @@ class Register extends Component {
         </div>
         <div className="create_password">
           <span>specialisation</span>
-          <input
-            placeholder="please enter ur specialisation"
-            value={this.state.specialisation}
+          <select
             name="specialisation"
+            value={this.state.specialisation}
             onChange={this.changehandler}
-          />
+          >
+            <option disabled selected>
+              Select your specialisation
+            </option>
+            {this.renderspecs(this.state.hospitals)}
+          </select>
         </div>
         <div className="doc_gender">
           <span>Gender</span>
@@ -149,6 +176,12 @@ class Register extends Component {
         </div>
       </div>
     );
+  }
+  componentDidMount() {
+    axios.get(allcities).then((r) => this.setState({ cities: r.data }));
+    axios
+      .get(specialisationurl)
+      .then((r) => this.setState({ hospitals: r.data }));
   }
 }
 export default Register;

@@ -1,13 +1,25 @@
-import React from "react";
+import axios from "axios";
+import { Component } from "react";
 import "./Appoint1.css";
-const Appointments1 = ({ props }) => {
-  const renderappoints = (data) => {
+const userurl = "http://localhost:1111/doctors/docdata/";
+const deleteurl = "http://localhost:1111/user/deleteappointent/";
+class Appointments1 extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: "",
+      role: "",
+    };
+  }
+  deleteappointment = (id) => {
+    axios
+      .put(`${deleteurl}${this.state.user._id}?id=${id}`)
+      .then((r) => console.log(r.data));
+  };
+  renderappoints = (data) => {
     if (data) {
       return data.map((item) => (
-        <div
-          class="card"
-          style={{ width: "15rem", height: "12rem", border: "1px solid black" }}
-        >
+        <div class="card" style={{ width: "18rem", height: "12rem" }}>
           <div class="card-body">
             <div className="card_body">
               <h5 class="card-title">Patientname-{item.patientname}</h5>
@@ -17,21 +29,53 @@ const Appointments1 = ({ props }) => {
               <p>Problem Related to -{item.specialisation}</p>
             </div>
             <div className="appoint_acpt_button">
-              <button className="btn btn-primary">Accept</button>
-              <button className="btn btn-danger">Reject</button>
+              {this.state.role && (
+                <button
+                  className="btn btn-primary"
+                  style={{
+                    width: "100px",
+                    height: "40px",
+                    overflow: "hidden",
+                  }}
+                >
+                  Accept
+                </button>
+              )}
+              <button
+                style={{
+                  width: "100px",
+                  height: "40px",
+                  overflow: "hidden",
+                }}
+                className="btn btn-danger"
+                onClick={() => this.deleteappointment(item.id)}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       ));
     }
   };
-  //   console.log(props);
-  return (
-    <div className="bottom_right">
-      {/* <h1>Appointments</h1> */}
-      {renderappoints(props.appointments)}
-    </div>
-  );
-};
+  render() {
+    console.log(this.state);
+    return (
+      <div className="bottom_right">
+        {this.renderappoints(this.state.user.appointments)}
+      </div>
+    );
+  }
+  componentDidMount() {
+    const id = sessionStorage.getItem("userid");
 
+    axios.get(`${userurl}${id}`).then((res) => {
+      const name = res.data.role.trim();
+      if (name === "Doctor") {
+        this.setState({ role: name });
+      }
+      this.setState({ user: res.data });
+    });
+  }
+}
 export default Appointments1;

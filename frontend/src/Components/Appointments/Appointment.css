@@ -44,7 +44,7 @@
 }
 .file_img img {
   width: 100px;
-  nheight: 100px;
+  height: 100px;
   object-fit: cover;
 }
 .card

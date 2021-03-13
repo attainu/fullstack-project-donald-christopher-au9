@@ -3,6 +3,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { GoVerified } from "react-icons/go";
+import { BiSearch } from "react-icons/bi";
 import "./Navbar.css";
 import axios from "axios";
 import { withRouter } from "react-router";
@@ -55,9 +56,13 @@ class Nav2 extends Component {
     if (data) {
       return data.map((city) => (
         <li
+          className="citylist"
           key={city._id}
           onClick={() => this.set_City_inputvalue2(city.cityname)}
         >
+          <div className="city_icon">
+            <BiSearch />
+          </div>{" "}
           {city.cityname}
         </li>
       ));
