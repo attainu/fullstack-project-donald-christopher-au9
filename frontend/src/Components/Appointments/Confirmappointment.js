@@ -28,12 +28,9 @@ class Confirmappointment extends Component {
   submithandler = () => {
     // console.log(this.state)
     axios
-      .put(
-        `${addappintment}/${this.state.userid}?docid=${this.state.doctor._id}`,
-        this.state
-      )
-      // .then((r) => console.log(r.data.confirmationmsg));
+      .put(`${addappintment}/${this.state.userid}`, this.state)
       .then((res) => {
+        // console.log(res.data)
         this.setState({ confirmationmsg: res.data.confirmationmsg });
         setTimeout(() => {
           this.props.history.push("/doctorlist");
@@ -178,7 +175,7 @@ class Confirmappointment extends Component {
     }
   };
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     if (!sessionStorage.getItem("slot_date")) {
       this.props.history.push(`/doctorlist`);
     }

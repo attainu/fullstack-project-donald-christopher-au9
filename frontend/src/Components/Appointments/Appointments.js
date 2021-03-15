@@ -70,7 +70,7 @@ class Appointments extends Component {
       .get(`${allusers}/${id}`)
       .then((r) => this.setState({ users: r.data }));
     const path = this.props.location.pathname;
-    console.log(path);
+    // console.log(path);
     if (path === "/appointments") {
       this.setState({ profileDisplay: "flex" });
     } else if (path === "/appointments/profile") {

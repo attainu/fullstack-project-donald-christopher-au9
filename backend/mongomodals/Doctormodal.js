@@ -47,13 +47,6 @@ const doctorschema = new mongoose.Schema({
   likes: {
     type: Number,
   },
-  slot: {
-    type: [
-      {
-        type: Object,
-      },
-    ],
-  },
   bookingvisible: {
     type: Boolean,
   },

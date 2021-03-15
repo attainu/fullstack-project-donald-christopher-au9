@@ -1,4 +1,5 @@
 const express = require("express");
+const { mongo } = require("mongoose");
 const { rawListeners } = require("../mongomodals/Doctormodal");
 const doctor = require("../mongomodals/Doctormodal");
 const Doctorroute = express.Router();
@@ -6,8 +7,8 @@ const Doctorroute = express.Router();
 Doctorroute.get("/", (req, res) => {
   doctor.find({ role: "Doctor" }).then((result) => res.send(result));
 });
-Doctorroute.get("/all", (req, res) => {
-  doctor.find({}).then((result) => res.send(result));
+Doctorroute.get("/all", async (req, res) => {
+  doctor.find().then((r) => res.send(r));
 });
 
 Doctorroute.post("/register", (req, res) => {

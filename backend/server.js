@@ -18,6 +18,8 @@ app.get("/profile", (req, res) => {
 app.get("/error", (req, res) => {
   res.send("not valid");
 });
+
+app.use("/uploads", express.static("uploads"));
 app.use("/doctors", Doctorroute);
 app.use("/user", Userroute);
 app.use("/facebook", facebookroute);
