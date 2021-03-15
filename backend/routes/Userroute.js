@@ -102,7 +102,7 @@ Userroute.put("/editprofile/:id", upload.single("file"), (req, res) => {
     profileimg: req.body.profileimg,
     specialisation: req.body.specialisation,
   };
-  res.send(req.files);
+  res.send(req.file);
   // res.send(data);
   // doctor.findByIdAndUpdate(req.params.id, data).then((r) => {
   //   doctor.findById(req.params.id).then((re) => res.send(re));

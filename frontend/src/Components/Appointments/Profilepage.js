@@ -20,6 +20,7 @@ class Profilepage extends Component {
       disable: true,
       specialisation: "",
       file: "",
+      filedata: "",
     };
   }
   filehandler = (e) => {
@@ -29,8 +30,9 @@ class Profilepage extends Component {
   submithandler = () => {
     const data = new FormData();
     data.append("file", this.state.file);
+    data.append("state", this.state);
     axios
-      .put(`${editprofile}/${this.state.user._id}`, this.state)
+      .put(`${editprofile}/${this.state.user._id}`, data)
       .then((r) => console.log(r.data));
 
     // this.setState({ disable: !this.state.disable });
@@ -54,7 +56,7 @@ class Profilepage extends Component {
               alt="/"
               disabled={this.state.disable}
             />
-            <input type="file" onChange={this.filehandler} />
+            <input type="file" name="file" onChange={this.filehandler} />
           </div>
           <div className="Profile_inputs">
             <div className="profile_name_input">
