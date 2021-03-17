@@ -18,9 +18,9 @@ class Nav2 extends Component {
       cities_list: false,
       hospitalList: false,
       City_inputvalue1: "",
-      City_inputvalue2: "",
+      City_inputvalue2: sessionStorage.getItem("cityname"),
       hospital_inputvalue1: "",
-      hospital_inputvalue2: "",
+      hospital_inputvalue2: sessionStorage.getItem("specs"),
     };
   }
   disable_cancel = (name) => {
@@ -32,17 +32,12 @@ class Nav2 extends Component {
   };
   city_changehandler = (e) => {
     const keyword = e.target.value;
-    if (keyword === "") {
-      this.setState({ cities_list: false });
-    } else {
-      this.setState({ cities_list: true });
-      const list = this.state.allcities.filter(
-        (city) =>
-          city.cityname.toLowerCase().indexOf(keyword.toLowerCase()) > -1
-      );
-      // console.log(list);
-      this.setState({ City_inputvalue1: keyword, City_inputvalue2: list });
-    }
+    this.setState({ cities_list: true });
+    const list = this.state.allcities.filter(
+      (city) => city.cityname.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+    );
+    // console.log(list);
+    this.setState({ City_inputvalue1: keyword, City_inputvalue2: list });
   };
   set_City_inputvalue2 = (cityname) => {
     this.setState({
@@ -50,7 +45,6 @@ class Nav2 extends Component {
       cities_list: false,
       City_inputvalue1: cityname,
     });
-    // console.log(this.state);
   };
   display_city_list = (data) => {
     if (data) {
@@ -60,10 +54,7 @@ class Nav2 extends Component {
           key={city._id}
           onClick={() => this.set_City_inputvalue2(city.cityname)}
         >
-          <div className="city_icon">
-            <BiSearch />
-          </div>{" "}
-          {city.cityname}
+          <div className="city_icon"></div> {city.cityname}
         </li>
       ));
     }
@@ -93,28 +84,28 @@ class Nav2 extends Component {
         "specs",
         this.state.hospital_inputvalue2[0].specialisation
       );
-      this.props.history.push("/doctorlist");
+      this.props.history.push(`/doctorlist`);
+      this.props.filtereddata(
+        this.state.City_inputvalue2,
+        this.state.hospital_inputvalue2[0].specialisation
+      );
     } else {
       console.log("no");
     }
   };
   hospital_changehandler = (e) => {
     const key = e.target.value;
-    if (key === "") {
-      this.setState({ hospitalList: false });
-    } else {
-      this.setState({ hospitalList: true });
+    this.setState({ hospitalList: true });
 
-      const hospital = this.state.allhospitals.filter(
-        (hospi) =>
-          hospi.specialisation.toLowerCase().indexOf(key.toLowerCase()) > -1
-      );
-      // console.log(hospital);
-      this.setState({
-        hospital_inputvalue1: key,
-        hospital_inputvalue2: hospital,
-      });
-    }
+    const hospital = this.state.allhospitals.filter(
+      (hospi) =>
+        hospi.specialisation.toLowerCase().indexOf(key.toLowerCase()) > -1
+    );
+    // console.log(hospital);
+    this.setState({
+      hospital_inputvalue1: key,
+      hospital_inputvalue2: hospital,
+    });
   };
   render() {
     // console.log(this.state.City_inputvalue2);

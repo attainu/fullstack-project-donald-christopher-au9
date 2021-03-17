@@ -27,10 +27,11 @@ class Register extends Component {
     };
   }
   changehandler = (e) => {
+    console.log(e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   };
   submithandler = () => {
-    // console.log(this.state);
+    console.log(this.state);
     axios.post(registerurl, this.state).then((res) => {
       console.log(res.data);
       this.setState({ error: res.data.emailerror });
@@ -156,7 +157,7 @@ class Register extends Component {
             onChange={this.changehandler}
           >
             <option disabled selected>
-              Select your specialisation
+              set specialisation
             </option>
             {this.renderspecs(this.state.hospitals)}
           </select>
@@ -164,7 +165,7 @@ class Register extends Component {
         <div className="doc_gender">
           <span>Gender</span>
           <div className="abc" onChange={this.changehandler}>
-            <input type="radio" name="gender" value="Male" />
+            <input type="radio" name="gender" value="Male" checked />
             <label>Male</label>
             <input type="radio" name="gender" value="Female" />
             <label>Female</label>

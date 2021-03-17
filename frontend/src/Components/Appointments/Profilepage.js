@@ -3,10 +3,17 @@ import React, { Component } from "react";
 import "./Profilepage.css";
 const userurl = "http://localhost:1111/user";
 const editprofile = "http://localhost:1111/user/editprofile";
+const fileurl = "http://localhost:1111/user/file";
+const commonurl = "http://localhost:1111";
+const allcities = "http://localhost:1111/city/all";
+const specialisationurl = "http://localhost:1111/city/special";
 class Profilepage extends Component {
   constructor() {
     super();
     this.state = {
+      cities: "",
+      hospitals: "",
+      userid: "",
       user: "",
       city: "",
       cost: "",
@@ -19,23 +26,39 @@ class Profilepage extends Component {
       profileimg: "",
       disable: true,
       specialisation: "",
-      file: "",
-      filedata: "",
     };
   }
   filehandler = (e) => {
-    // console.log(e.target.files);
-    this.setState({ file: e.target.files[0] });
+    const file = e.target.files[0];
+    this.setState({ filedata: file });
+    const formdata = new FormData();
+    formdata.append("image", file);
+    axios.post(fileurl, formdata).then((r) => {
+      this.setState({ profileimg: `${commonurl}/${r.data}` });
+      console.log(r.data);
+    });
+    sessionStorage.setItem("userimage", this.state.profileimg);
   };
   submithandler = () => {
-    const data = new FormData();
-    data.append("file", this.state.file);
-    data.append("state", this.state);
-    axios
-      .put(`${editprofile}/${this.state.user._id}`, data)
-      .then((r) => console.log(r.data));
+    // console.log(this.state, "not updated");
 
-    // this.setState({ disable: !this.state.disable });
+    axios.put(`${editprofile}/${this.state.userid}`, this.state).then((r) => {
+      sessionStorage.setItem("userimage", this.state.profileimg);
+      this.setState({
+        user: r.data,
+        city: r.data.city,
+        cost: r.data.cost,
+        email: r.data.email,
+        experience: r.data.experience,
+        fullname: r.data.fullname,
+        gender: r.data.gender,
+        leavestatus: r.data.leavestatus,
+        registered: r.data.registered,
+        profileimg: r.data.profileimg,
+        specialisation: r.data.specialisation,
+        disable: !this.state.disable,
+      });
+    });
   };
   changehandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -43,122 +66,175 @@ class Profilepage extends Component {
   disableinput = () => {
     this.setState({ disable: !this.state.disable });
   };
+  rendercities = (data) => {
+    if (data) {
+      return data.map((city) => (
+        <option value={city.cityname}>{city.cityname}</option>
+      ));
+    }
+  };
+  renderspecs = (data) => {
+    if (data) {
+      return data.map((city) => (
+        <option value={city.specialisation}>{city.specialisation}</option>
+      ));
+    }
+  };
   renderprofile = (data) => {
     if (this.state.user) {
       return (
         <div>
+          {" "}
           <div className="editbutton">
-            <button onClick={this.disableinput}>Edit profile</button>
+            {this.state.disable && (
+              <button onClick={this.disableinput}>Edit profile</button>
+            )}
+            {!this.state.disable && (
+              <button onClick={this.submithandler}>Save changes</button>
+            )}
           </div>
-          <div className="Profile_img">
-            <img
-              src={this.state.profileimg}
-              alt="/"
-              disabled={this.state.disable}
-            />
-            <input type="file" name="file" onChange={this.filehandler} />
-          </div>
-          <div className="Profile_inputs">
-            <div className="profile_name_input">
-              <label>Name of user</label>
-              <input
-                placeholder="Name Here"
-                name="fullname"
-                id="name_input"
-                value={this.state.fullname}
+          <div className="Profile_box">
+            <div className="Profile_img">
+              <img
+                src={this.state.profileimg}
+                alt="/"
                 disabled={this.state.disable}
-                onChange={this.changehandler}
+              />
+              <input
+                type="file"
+                name="file"
+                onChange={this.filehandler}
+                className="file_upload"
+                disabled={this.state.disable}
               />
             </div>
-            <div className="profile_name_input">
-              <label>City</label>
-              <input
-                placeholder="city Here"
-                name="city"
-                value={this.state.city}
-                disabled={this.state.disable}
-                onChange={this.changehandler}
-              />
-            </div>
-            <div className="profile_name_input">
-              <label>Leave status</label>
-              <div className="Status_profile">
-                <select
-                  name="leavestatus"
-                  value={this.state.leavestatus}
+            <div className="Profile_inputs">
+              <div className="profile_name_input">
+                <label>Name of user</label>
+                <input
+                  placeholder="Name Here"
+                  name="fullname"
+                  id="name_input"
+                  value={this.state.fullname}
                   disabled={this.state.disable}
                   onChange={this.changehandler}
-                >
-                  <option value="true">True</option>
-                  <option value="false">false</option>
-                </select>
+                />
               </div>
-            </div>
-            <div className="profile_name_input">
-              <label>gender</label>
-              <div className="Status_profile">
+              <div className="profile_name_input">
+                <span>City</span>
                 <select
-                  name="gender"
-                  value={this.state.gender}
+                  className="select_options"
+                  name="city"
                   disabled={this.state.disable}
                   onChange={this.changehandler}
+                  value={this.state.city}
                 >
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
+                  <option disabled selected>
+                    Select your city
+                  </option>
+                  {this.rendercities(this.state.cities)}
                 </select>
               </div>
-            </div>
-            <div className="profile_name_input">
-              <label>Cost</label>
-              <input
-                placeholder="Name Here"
-                type="number"
-                name="cost"
-                value={this.state.cost}
-                disabled={this.state.disable}
-                onChange={this.changehandler}
-              />
-            </div>
-            <div className="profile_name_input">
-              <label>specialisation</label>
-              <input
-                placeholder="Name Here"
-                name="specialisation"
-                value={this.state.specialisation}
-                disabled={this.state.disable}
-                onChange={this.changehandler}
-              />
-            </div>
-            <div className="profile_name_input">
-              <label>Experienece</label>
-              <select
-                disabled={this.state.disable}
-                name="experience"
-                value={this.state.experience}
-                onChange={this.changehandler}
-              >
-                <option value="+1">+1</option>
-                <option value="+5">+5</option>
-                <option value="+10">+10</option>
-                <option value="+15">+15</option>
-              </select>
-            </div>
-            <div className="profile_name_input">
-              <label>Registered</label>
-              <select
-                name="registered"
-                value={this.state.registered}
-                disabled={this.state.disable}
-                onChange={this.changehandler}
-              >
-                <option value="true">True</option>
-                <option value="false">false</option>
-              </select>
-            </div>
-            <div>
-              {!this.state.disable && (
-                <button onClick={this.submithandler}>Save changes</button>
-              )}
+              <div className="profile_name_select">
+                <div>
+                  <label>Leave status</label>
+                  <div className="Status_profile">
+                    <select
+                      name="leavestatus"
+                      className="Leave_status"
+                      value={this.state.leavestatus}
+                      disabled={this.state.disable}
+                      onChange={this.changehandler}
+                    >
+                      <option value="true">True</option>
+                      <option value="false">false</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label>gender</label>
+                  <div className="Status_profile">
+                    <select
+                      name="gender"
+                      className="Leave_status"
+                      value={this.state.gender}
+                      disabled={this.state.disable}
+                      onChange={this.changehandler}
+                    >
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="profile_name_input">
+                <label>Cost</label>
+                <input
+                  placeholder="Name Here"
+                  type="number"
+                  name="cost"
+                  value={this.state.cost}
+                  disabled={this.state.disable}
+                  onChange={this.changehandler}
+                />
+              </div>
+              <div className="profile_name_input">
+                <span>specialisation</span>
+                <select
+                  className="select_options"
+                  name="specialisation"
+                  value={this.state.specialisation}
+                  onChange={this.changehandler}
+                  disabled={this.state.disable}
+                >
+                  <option disabled selected>
+                    Select your specialisation
+                  </option>
+                  {this.renderspecs(this.state.hospitals)}
+                </select>
+              </div>
+              <div className="profile_name_select">
+                <div>
+                  <label>Experienece</label>
+                  <div className="Status_profile">
+                    <select
+                      disabled={this.state.disable}
+                      name="experience"
+                      className="Leave_status"
+                      value={this.state.experience}
+                      onChange={this.changehandler}
+                    >
+                      <option disabled selected>
+                        Select your experience
+                      </option>
+                      <option value="+1">+1</option>
+                      <option value="+5">+5</option>
+                      <option value="+10">+10</option>
+                      <option value="+15">+15</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label>Registered</label>
+                  <div className="Status_profile">
+                    {" "}
+                    <select
+                      name="registered"
+                      className="Leave_status"
+                      value={this.state.registered}
+                      disabled={this.state.disable}
+                      onChange={this.changehandler}
+                    >
+                      <option disabled selected>
+                        Select your Registered status
+                      </option>
+                      <option value="true">True</option>
+                      <option value="false">false</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div></div>
             </div>
           </div>
         </div>
@@ -178,6 +254,7 @@ class Profilepage extends Component {
     const id = sessionStorage.getItem("userid");
     axios.get(`${userurl}/${id}`).then((r) =>
       this.setState({
+        userid: id,
         user: r.data,
         city: r.data.city,
         cost: r.data.cost,
@@ -191,6 +268,10 @@ class Profilepage extends Component {
         specialisation: r.data.specialisation,
       })
     );
+    axios.get(allcities).then((r) => this.setState({ cities: r.data }));
+    axios
+      .get(specialisationurl)
+      .then((r) => this.setState({ hospitals: r.data }));
   }
 }
 

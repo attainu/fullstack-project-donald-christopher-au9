@@ -18,24 +18,58 @@ class Confirmappointment extends Component {
       patientname: "",
       confirmationmsg: "",
       slot: "",
-      doctorimg: "",
+      doctorimg: sessionStorage.getItem("docimg"),
       specialisation: "",
+      userImg: sessionStorage.getItem("userimage"),
+      fee: "",
     };
   }
   changehandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
   submithandler = () => {
-    // console.log(this.state)
-    axios
-      .put(`${addappintment}/${this.state.userid}`, this.state)
-      .then((res) => {
-        // console.log(res.data)
-        this.setState({ confirmationmsg: res.data.confirmationmsg });
-        setTimeout(() => {
-          this.props.history.push("/doctorlist");
-        }, 2000);
-      });
+    // console.log(this.state);
+    const patient = {
+      userid: this.state.userid,
+      username: this.state.fullname,
+      consultingpatient: this.state.patientname,
+      userImg: this.state.userImg,
+      doctorid: this.state.doctorid,
+      doctorname: this.state.doctorname,
+      doctorimg: this.state.doctorimg,
+      slottime: this.state.slot,
+      city: this.state.doctor.city,
+      hospitalname: this.state.doctor.hospitalname,
+      reasonofconsult: this.state.specialisation,
+      fee: this.state.fee,
+    };
+    const doctor = {
+      userid: this.state.userid,
+      username: this.state.fullname,
+      consultingpatient: this.state.patientname,
+      userImg: this.state.userImg,
+      doctorname: this.state.doctorname,
+      doctorid: this.state.doctorid,
+      doctorimg: this.state.doctorimg,
+      slottime: this.state.slot,
+      city: this.state.doctor.city,
+      reasonofconsult: this.state.specialisation,
+      fee: this.state.fee,
+    };
+    const data = {
+      patient,
+      doctor,
+    };
+    // console.log(data);
+    axios.put(`${addappintment}/${this.state.userid}`, data).then((res) => {
+      // console.log(res.data);
+      this.setState({ confirmationmsg: res.data.confirmationmsg });
+      setTimeout(() => {
+        sessionStorage.removeItem("docimg");
+        sessionStorage.removeItem("userimage");
+        this.props.history.push("/doctorlist");
+      }, 2000);
+    });
   };
   renderdata = (data) => {
     if (data) {
@@ -55,7 +89,7 @@ class Confirmappointment extends Component {
               <hr />
               <div className="confirm_docinfo">
                 <div id="doctorimg">
-                  <img src={this.state.doctor.profileimg} alt=""></img>
+                  <img src={sessionStorage.getItem("docimg")} alt=""></img>
                 </div>
                 <div id="Doctor_card_info">
                   <div id="Doctor_name">
@@ -205,8 +239,8 @@ class Confirmappointment extends Component {
           time: sessionStorage.getItem("slot_time"),
           date: sessionStorage.getItem("slot_date"),
         },
-        doctorimg: res.data.profileimg,
         specialisation: res.data.specialisation,
+        fee: res.data.cost,
       })
     );
   }

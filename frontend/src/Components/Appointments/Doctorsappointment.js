@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
 import "./Appoint1.css";
-import Doctorappointments from "./Doctorsappointment";
 const userurl = "http://localhost:1111/doctors/docdata/";
 const deleteurl = "http://localhost:1111/user/delete/";
 class Appointments1 extends Component {
@@ -15,15 +14,9 @@ class Appointments1 extends Component {
   }
   user_deleteappointment = (appointid, doctorid) => {
     const userid = sessionStorage.getItem("userid");
-    // console.log(appointid, doctorid);
     axios
       .put(`${deleteurl}${userid}?appointid=${appointid}&doctorid=${doctorid}`)
       .then((res) => {
-        // console.log(res.data);
-        const name = res.data.role.trim();
-        if (name === "Doctor") {
-          this.setState({ role: name });
-        }
         if (res.data) {
           this.setState({
             appointments: res.data.appointments,
@@ -36,7 +29,7 @@ class Appointments1 extends Component {
       return data.map((data) => (
         <div className="Appoint_container">
           <div className="appoint_img">
-            <img src={data.doctorimg} alt="/" />
+            <img src={data.userImg} alt="/" />
           </div>
           <div className="appoint_text">
             <div className="appoint_text1">
@@ -106,7 +99,7 @@ class Appointments1 extends Component {
       return (
         <div className="Appoint_container2">
           <div className="appoint_img">
-            <img src={data[0].doctorimg} alt="/" />
+            <img src={data[0].userImg} alt="/" />
           </div>
           <div className="appoint_text">
             <div className="appoint_text1">
@@ -200,11 +193,9 @@ class Appointments1 extends Component {
   };
 
   render() {
-    // console.log("data", this.state.appointments);
     return (
       <div className="bottom_right">
-        {this.state.patient && this.renderuserdata(this.state.appointments)}
-        {this.state.doctor && <Doctorappointments />}
+        {this.renderuserdata(this.state.appointments)}
       </div>
     );
   }

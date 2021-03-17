@@ -119,12 +119,8 @@ class Navbar extends Component {
           </div>
         </div>
         <hr style={{ color: "grey" }} />
-        <Nav2 />
       </div>
     );
-  }
-  componentDidMount() {
-    console.log("mounted");
   }
 }
 

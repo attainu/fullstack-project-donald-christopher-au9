@@ -28,6 +28,7 @@
   z-index: 1;
 }
 .confirm_nav {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -82,6 +83,12 @@
   padding: 16px;
   flex-wrap: wrap;
   /* border: 1px solid black; */
+}
+.profile_list
+{
+  position: absolute;
+  top: 70px;
+  right: 10%;
 }
 #hospital_name
 {
@@ -186,5 +193,21 @@
   } */
   .confirminfo {
     margin: 0;
+  }
+  .confirm_nav
+  {
+    flex-direction: column;
+    height: max-content;
+  }
+  .profile_list
+  {
+    top: 110px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+  }
+  .profile_list li
+  {
+    border-bottom: 1px solid grey;
   }
 }

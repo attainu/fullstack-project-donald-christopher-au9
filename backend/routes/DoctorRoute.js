@@ -1,14 +1,20 @@
+const { ObjectID } = require("bson");
 const express = require("express");
-const { mongo } = require("mongoose");
+const mongodb = require("mongodb");
+
 const { rawListeners } = require("../mongomodals/Doctormodal");
 const doctor = require("../mongomodals/Doctormodal");
 const Doctorroute = express.Router();
 
-Doctorroute.get("/", (req, res) => {
-  doctor.find({ role: "Doctor" }).then((result) => res.send(result));
-});
 Doctorroute.get("/all", async (req, res) => {
-  doctor.find().then((r) => res.send(r));
+  const result = await doctor.find({});
+  res.send(result);
+});
+Doctorroute.get("/", async (req, res) => {
+  const email = req.query.email ? req.query.email : "";
+  const doctors = await doctor.find({ role: "Doctor" });
+  const ans = doctors.filter((item) => item.email !== email);
+  res.send(ans);
 });
 
 Doctorroute.post("/register", (req, res) => {
@@ -21,7 +27,7 @@ Doctorroute.post("/register", (req, res) => {
     specialisation: req.body.specialisation ? req.body.specialisation : null,
     profileimg: req.body.profileimg
       ? req.body.profileimg
-      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR7TEM9d91DuHZgbmbtlx4tlSl-FJQKvREDA&usqp=CAU",
+      : "https://image.freepik.com/free-vector/man-profile-cartoon_18591-58482.jpg",
     likes: req.body.likes ? req.body.likes : 0,
     slot: req.body.slot ? req.body.slot : "",
     bookingvisible: false,

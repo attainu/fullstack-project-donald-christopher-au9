@@ -21,12 +21,13 @@ class Loginpage extends Component {
     window.location.href = "http://localhost:1111/facebook/auth/facebook";
     // console.log("clicked")
   };
-  submithandler = () => {
+  submithandler = (e) => {
+    e.preventDefault();
     const location = window.location.pathname;
     const path = location.split("/");
     if (path[1] === "confirmappointment") {
       axios.post(loginurl, this.state).then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({
           emailerror: res.data.emailerror,
           passworderror: res.data.passworderror,
@@ -34,6 +35,7 @@ class Loginpage extends Component {
         sessionStorage.setItem("username", res.data.result.fullname);
         sessionStorage.setItem("email", res.data.result.email);
         sessionStorage.setItem("userid", res.data.result._id);
+        sessionStorage.setItem("userimage", res.data.result.profileimg);
         if (res.data.result) {
           this.props.history.push(
             `/confirmappointment/${this.props.match.params.id}`
@@ -42,7 +44,7 @@ class Loginpage extends Component {
       });
     } else {
       axios.post(loginurl, this.state).then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
 
         this.setState({
           emailerror: res.data.emailerror,
@@ -51,6 +53,8 @@ class Loginpage extends Component {
         sessionStorage.setItem("username", res.data.result.fullname);
         sessionStorage.setItem("email", res.data.result.email);
         sessionStorage.setItem("userid", res.data.result._id);
+        sessionStorage.setItem("userimage", res.data.result.profileimg);
+
         if (res.data.result) {
           this.props.history.push("/");
         }
@@ -60,7 +64,7 @@ class Loginpage extends Component {
   };
   render() {
     return (
-      <div className="Login_container">
+      <form className="Login_container" onSubmit={this.submithandler}>
         <div className="Login_mobile">
           <span>Mobile Number/Email ID</span>
           <input
@@ -97,7 +101,7 @@ class Loginpage extends Component {
           Login with otp instead of Password
         </div>
         <div className="loginbutton">
-          <button onClick={this.submithandler}>Login</button>
+          <button type="submit">Login</button>
         </div>
         <hr />
         <div className="facebook_login">
@@ -106,7 +110,7 @@ class Loginpage extends Component {
             connect with facebook
           </button>
         </div>
-      </div>
+      </form>
     );
   }
 }

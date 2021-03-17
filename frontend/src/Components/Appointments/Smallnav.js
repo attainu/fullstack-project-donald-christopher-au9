@@ -46,12 +46,17 @@ class Smallnav extends Component {
             style={{ display: this.state.profiledisplay }}
           >
             <Link
-              to="/appointments"
+              to="/appointments/appointments"
               style={{ textDecoration: "none", color: "black" }}
             >
               <li>Appointments</li>
             </Link>
-            <li>Profile</li>
+            <Link
+              to="/appointments/profile"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <li>Profile</li>
+            </Link>
 
             <li onClick={this.logouthandler}>Logout</li>
           </div>

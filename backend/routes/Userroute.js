@@ -4,6 +4,7 @@ const Userroute = express.Router();
 const doctor = require("../mongomodals/Doctormodal");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const { ObjectID } = require("bson");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -26,50 +27,51 @@ const upload = multer({
   fileFilter: filetype,
 });
 
-Userroute.put("/addappointment/:id", (req, res) => {
-  const userid = req.params.id;
-  const doctorid = req.body.doctor._id;
-  const appointslot = req.body.slot;
-  const patientname = req.body.patientname;
-  const doctorname = req.body.doctor.fullname;
-  const doctorimg = req.body.doctorimg;
-  const specialisation = req.body.specialisation;
+Userroute.put("/addappointment/:id", async (req, res) => {
+  // res.send(req.body);
+  const patientdata = req.body.patient;
+  const doctordata = req.body.doctor;
   const appointid = new mongoose.mongo.ObjectId();
-  // console.log(userid);
-  doctor
-    .findByIdAndUpdate(doctorid, {
-      $push: {
-        appointments: {
-          appointid: appointid,
-          patientname: patientname,
-          slot: appointslot,
-          userid,
-          profileimg: doctorimg,
-          specialisation,
-        },
+  // res.send(appointid);
+  const result = await doctor.findByIdAndUpdate(doctordata.doctorid, {
+    $push: {
+      appointments: {
+        appointid,
+        userid: patientdata.userid,
+        username: patientdata.username,
+        consultingpatient: patientdata.consultingpatient,
+        userImg: patientdata.userImg,
+        doctorid: patientdata.doctorid,
+        doctorname: patientdata.doctorname,
+        doctorimg: patientdata.doctorimg,
+        slottime: patientdata.slottime,
+        city: patientdata.city,
+        hospitalname: patientdata.hospitalname,
+        reasonofconsult: patientdata.reasonofconsult,
+        fee: patientdata.fee,
       },
-    })
-    .then((doctorinfo) =>
-      doctor
-        .findByIdAndUpdate(userid, {
-          $push: {
-            appointments: {
-              appointid: appointid,
-              doctorname,
-              slot: appointslot,
-              doctorid,
-              specialisation,
-            },
-          },
-        })
-        .then((r) =>
-          res.send({
-            doctordata: doctorinfo,
-            userdata: r,
-            confirmationmsg: "yes",
-          })
-        )
-    );
+    },
+  });
+  const ans = await doctor.findByIdAndUpdate(patientdata.userid, {
+    $push: {
+      appointments: {
+        appointid,
+        userid: doctordata.userid,
+        username: doctordata.username,
+        consultingpatient: doctordata.consultingpatient,
+        userImg: doctordata.userImg,
+        doctorid: doctordata.doctorid,
+        doctorname: doctordata.doctorname,
+        doctorimg: doctordata.doctorimg,
+        slottime: doctordata.slottime,
+        city: doctordata.city,
+        hospitalname: doctordata.hospitalname,
+        reasonofconsult: doctordata.reasonofconsult,
+        fee: doctordata.fee,
+      },
+    },
+  });
+  res.send({ result, ans, confirmationmsg: "success" });
 });
 Userroute.get("/:id", (req, res) => {
   doctor.findById(req.params.id).then((r) => res.send(r));
@@ -81,40 +83,46 @@ Userroute.put("/disable", (req, res) => {
     .then((r) => res.send("disabled"));
 });
 
-Userroute.get("/delete/:id", async (req, res) => {
-  const result = await doctor.findById(req.params.id);
-  const a = result.appointments.findIndex({
-    appointid: "604eeac8606aed22e002b164",
+Userroute.put("/delete/:id", async (req, res) => {
+  const appoint = req.query.appointid;
+  const doctorid = req.query.doctorid;
+  const userid = req.params.id;
+  const user = await doctor.findByIdAndUpdate(userid, {
+    $pull: {
+      appointments: {
+        appointid: ObjectID(appoint),
+      },
+    },
   });
-  res.send(a);
+  const doctorop = await doctor.findByIdAndUpdate(doctorid, {
+    $pull: {
+      appointments: {
+        appointid: ObjectID(appoint),
+      },
+    },
+  });
+  doctor.findById(userid).then((r) => res.send(r));
 });
 
-Userroute.put("/editprofile/:id", upload.single("file"), (req, res) => {
-  const data = {
-    city: req.body.city,
-    cost: req.body.cost,
-    email: req.body.email,
-    experience: req.body.experience,
-    fullname: req.body.fullname,
-    gender: req.body.gender,
-    leavestatus: req.body.leavestatus,
-    registered: req.body.registered,
-    profileimg: req.body.profileimg,
-    specialisation: req.body.specialisation,
-  };
-  res.send(req.file);
-  // res.send(data);
-  // doctor.findByIdAndUpdate(req.params.id, data).then((r) => {
-  //   doctor.findById(req.params.id).then((re) => res.send(re));
-  // });
+Userroute.post("/file", upload.single("image"), (req, res, next) => {
+  res.send(`${req.file.path}`);
 });
 
-Userroute.post("/file/:id", upload.single("image"), (req, res, next) => {
-  doctor
-    .findByIdAndUpdate(req.params.id, { profileimg: req.file.path })
-    .then((r) => res.send(r));
-  // console.log(req.file);
-  // res.send("success");
+Userroute.put("/editprofile/:id", async (req, res) => {
+  const data = { ...req.body };
+  const updated = await doctor.findByIdAndUpdate(req.params.id, {
+    city: data.city,
+    cost: data.cost,
+    email: data.email,
+    experience: data.experience,
+    fullname: data.fullname,
+    gender: data.gender,
+    leavestatus: data.leavestatus,
+    registered: data.registered,
+    profileimg: data.profileimg,
+    specialisation: data.specialisation,
+  });
+  doctor.findById(req.params.id).then((r) => res.send(r));
 });
 
 module.exports = Userroute;

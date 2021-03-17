@@ -1,42 +1,9 @@
-import axios from "axios";
-import { Component } from "react";
-import "./Appoint1.css";
-import Doctorappointments from "./Doctorsappointment";
-const userurl = "http://localhost:1111/doctors/docdata/";
-const deleteurl = "http://localhost:1111/user/delete/";
-class Appointments1 extends Component {
-  constructor() {
-    super();
-    this.state = {
-      appointments: "",
-      doctor: "",
-      patient: "",
-    };
-  }
-  user_deleteappointment = (appointid, doctorid) => {
-    const userid = sessionStorage.getItem("userid");
-    // console.log(appointid, doctorid);
-    axios
-      .put(`${deleteurl}${userid}?appointid=${appointid}&doctorid=${doctorid}`)
-      .then((res) => {
-        // console.log(res.data);
-        const name = res.data.role.trim();
-        if (name === "Doctor") {
-          this.setState({ role: name });
-        }
-        if (res.data) {
-          this.setState({
-            appointments: res.data.appointments,
-          });
-        }
-      });
-  };
-  render_multipledata = (data) => {
+render_doctor_multipledata = (data) => {
     if (data) {
       return data.map((data) => (
         <div className="Appoint_container">
           <div className="appoint_img">
-            <img src={data.doctorimg} alt="/" />
+            <img src={data.patientdata.userImg} alt="/" />
           </div>
           <div className="appoint_text">
             <div className="appoint_text1">
@@ -44,7 +11,7 @@ class Appointments1 extends Component {
               <label>
                 <strong>Name of doctor:-</strong>
               </label>
-              <span>{data.doctorname}</span>
+              <span>{data.patientdata.doctorname}</span>
             </div>
             <div className="appoint_text1">
               <p>Patient details</p>
@@ -52,14 +19,14 @@ class Appointments1 extends Component {
                 <label>
                   <strong>Name of patient:-</strong>
                 </label>
-                <span>{data.username}</span>
+                <span>{data.patientdata.username}</span>
               </div>
               <br />
               <div className="appoint_blocks">
                 <label>
                   <strong>Person who is consulting:-</strong>
                 </label>
-                <span>{data.consultingpatient}</span>
+                <span>{data.patientdata.consultingpatient}</span>
               </div>
               <br />
               <div className="appoint_blocks">
@@ -67,8 +34,8 @@ class Appointments1 extends Component {
                   <strong>slot time:-</strong>
                 </label>
                 <span>
-                  {data.slottime.date} ||
-                  {data.slottime.time}
+                  {data.patientdata.slottime.date} ||
+                  {data.patientdata.slottime.time}
                 </span>
               </div>
               <br />
@@ -76,19 +43,22 @@ class Appointments1 extends Component {
                 <label>
                   <strong>Reason for visit:-</strong>
                 </label>
-                <span>{data.reasonofconsult}</span>
+                <span>{data.patientdata.reasonofconsult}</span>
               </div>
               <br />
               <div className="appoint_blocks">
                 <label>
                   <strong>Consulting fee:-</strong>
                 </label>
-                <span>{data.fee}</span>
+                <span>{data.patientdata.fee}</span>
               </div>
               <div className="Doctor_card_button_appoint">
                 <button
                   onClick={() =>
-                    this.user_deleteappointment(data.appointid, data.doctorid)
+                    this.user_deleteappointment(
+                      data.appointid,
+                      data.patientdata.doctorid
+                    )
                   }
                 >
                   Cancel appointment
@@ -101,12 +71,13 @@ class Appointments1 extends Component {
     }
   };
 
-  render_singledata = (data) => {
+
+  render_doctor_singledata = (data) => {
     if (data) {
       return (
         <div className="Appoint_container2">
           <div className="appoint_img">
-            <img src={data[0].doctorimg} alt="/" />
+            <img src={data[0].patientdata.userImg} alt="/" />
           </div>
           <div className="appoint_text">
             <div className="appoint_text1">
@@ -114,7 +85,7 @@ class Appointments1 extends Component {
               <label>
                 <strong>Name of doctor:-</strong>
               </label>
-              <span>{data[0].doctorname}</span>
+              <span>{data[0].patientdata.doctorname}</span>
             </div>
             <div className="appoint_text1">
               <p>Patient details</p>
@@ -122,14 +93,14 @@ class Appointments1 extends Component {
                 <label>
                   <strong>Name of patient:-</strong>
                 </label>
-                <span>{data[0].username}</span>
+                <span>{data[0].patientdata.username}</span>
               </div>
               <br />
               <div className="appoint_blocks">
                 <label>
                   <strong>Person who is consulting:-</strong>
                 </label>
-                <span>{data[0].consultingpatient}</span>
+                <span>{data[0].patientdata.consultingpatient}</span>
               </div>
               <br />
               <div className="appoint_blocks">
@@ -137,8 +108,8 @@ class Appointments1 extends Component {
                   <strong>slot time:-</strong>
                 </label>
                 <span>
-                  {data[0].slottime.date} ||
-                  {data[0].slottime.time}
+                  {data[0].patientdata.slottime.date} ||
+                  {data[0].patientdata.slottime.time}
                 </span>
               </div>
               <br />
@@ -146,21 +117,21 @@ class Appointments1 extends Component {
                 <label>
                   <strong>Reason for visit:-</strong>
                 </label>
-                <span>{data[0].reasonofconsult}</span>
+                <span>{data[0].patientdata.reasonofconsult}</span>
               </div>
               <br />
               <div className="appoint_blocks">
                 <label>
                   <strong>Consulting fee:-</strong>
                 </label>
-                <span>{data[0].fee}</span>
+                <span>{data[0].patientdata.fee}</span>
               </div>
               <div className="Doctor_card_button_appoint">
                 <button
                   onClick={() =>
                     this.user_deleteappointment(
                       data[0].appointid,
-                      data[0].doctorid
+                      data[0].patientdata.doctorid
                     )
                   }
                 >
@@ -173,53 +144,3 @@ class Appointments1 extends Component {
       );
     }
   };
-
-  renderuserdata = (data) => {
-    if (data.length === 0) {
-      return (
-        <div className="no_data_img">
-          <img
-            src="https://drive.practo.com/images/no_record_logo.svg"
-            alt="/"
-          />
-        </div>
-      );
-    } else if (data.length === 1) {
-      return (
-        <div className="appoints_single">
-          {this.render_singledata(this.state.appointments)}
-        </div>
-      );
-    } else {
-      return (
-        <div className="appoints_multiple">
-          {this.render_multipledata(this.state.appointments)}
-        </div>
-      );
-    }
-  };
-
-  render() {
-    // console.log("data", this.state.appointments);
-    return (
-      <div className="bottom_right">
-        {this.state.patient && this.renderuserdata(this.state.appointments)}
-        {this.state.doctor && <Doctorappointments />}
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    const id = sessionStorage.getItem("userid");
-    axios.get(`${userurl}${id}`).then((res) => {
-      const name = res.data.role.trim();
-      if (name === "Doctor") {
-        this.setState({ doctor: name });
-      } else {
-        this.setState({ patient: name });
-      }
-      this.setState({ appointments: res.data.appointments });
-    });
-  }
-}
-export default Appointments1;

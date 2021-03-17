@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./Doctorlist.css";
-import Nav3 from "../Navbar/Nav3";
-import Navbar from "../Navbar/Navbar";
 import axios from "axios";
 import Datebooking from "./Datebooking";
 const alldoctors = "http://localhost:1111/doctors";
@@ -10,8 +8,8 @@ const likeurl = "http://localhost:1111/doctors/editlike/";
 const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
 
 class Doctorlist extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       doctors: "",
       position: "",
@@ -27,8 +25,8 @@ class Doctorlist extends Component {
           .then((res) => this.setState({ doctors: res.data }))
       );
   };
-  appointmenthandler = (value, id) => {
-    // console.log(ans)
+  appointmenthandler = (value, id, docimg) => {
+    sessionStorage.setItem("docimg", docimg);
     axios.put(`${bookingvisible}${id}`).then(() =>
       axios.get(alldoctors).then((res) =>
         this.setState({
@@ -109,7 +107,11 @@ class Doctorlist extends Component {
                     id="appointment"
                     style={{ backgroundColor: "#14bef0" }}
                     onClick={() =>
-                      this.appointmenthandler(doctor.bookingvisible, doctor._id)
+                      this.appointmenthandler(
+                        doctor.bookingvisible,
+                        doctor._id,
+                        doctor.profileimg
+                      )
                     }
                   >
                     Book appointment
@@ -124,27 +126,21 @@ class Doctorlist extends Component {
       ));
     }
   };
+
   render() {
+    const length = this.props.data.doctorsdata.length;
     return (
       <div>
-        <Navbar />
-        <Nav3 />
         <div className="Doctorlist_main_container">
           <div className="Doctorlist_container">
             <div className="Doctorlist_container_text">
               <div className="doctor_card_header">
                 <span>
-                  Book from 109 cosmetic/aesthetic dentist in Bangalore
+                  Book from {length} {sessionStorage.getItem("specs")} doctors
+                  in {sessionStorage.getItem("cityname")}
                 </span>
                 <p>With predicted wait-time & verified details</p>
               </div>
-              {this.state.nodata && (
-                <img
-                  src="https://freefrontend.com/assets/img/html-css-404-page-templates/Simple-Pure-CSS3-404-Error-Page.gif"
-                  alt="/"
-                  style={{ width: "100%", height: "50vh" }}
-                />
-              )}
               {this.renderdoctors(this.state.doctors)}
             </div>
           </div>
@@ -162,11 +158,19 @@ class Doctorlist extends Component {
     );
   }
   componentDidMount() {
-    axios.get(alldoctors).then((r) => {
-      this.setState({ doctors: r.data });
-    });
     const windowheight = window.innerHeight;
-    if (windowheight > 800) {
+    const email = sessionStorage.getItem("email");
+
+    if (this.props.data.doctorsdata) {
+      this.setState({ doctors: this.props.data.doctorsdata });
+    } else {
+      axios.get(`${alldoctors}?email=${email}`).then((r) => {
+        this.setState({ doctors: r.data });
+        // console.log(r.data);
+      });
+    }
+
+    if (windowheight > 650) {
       window.addEventListener("scroll", () => {
         if (window.scrollY > 200) {
           this.setState({ position: "fixed" });
@@ -175,7 +179,6 @@ class Doctorlist extends Component {
         }
       });
     }
-    // console.log(windowheight);
   }
   componentWillUnmount() {
     axios.put(disable);
