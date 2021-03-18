@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import Doctorlist from "./Doctorlist";
 import Nav2 from "../Navbar/Nav2";
 import axios from "axios";
+import { Redirect } from "react-router";
 
 const alldoctors = "http://localhost:1111/doctors";
 
@@ -14,45 +15,75 @@ class Doctormainpage extends Component {
     super();
     this.state = {
       city: "",
-      spec: "",
       doctors: "",
-      cities: "",
+      nav3filter: "",
+      duplicate: "",
+      costfilter: "",
+      availabledata: "",
     };
   }
-  // citydata = (city, spec) => {
-  //   const cityfilter = this.state.doctors.filter((item) => item.city === city);
-  //   const hospitalfilter = cityfilter.filter(
-  //     (item) => item.specialisation === spec
-  //   );
-  //   this.setState({ doctors: hospitalfilter });
-  // };
+
   setcity = (city) => {
-    const cities = this.state.doctors.filter((item) => item.city === city);
-    this.setState({ doctors: cities, cities: "" });
+    const cities = this.state.maindata.filter((item) => item.city === city);
+    this.setState({
+      doctors: cities,
+      nav3filter: cities,
+      availabledata: cities,
+    });
+    sessionStorage.setItem("specs", "");
+    sessionStorage.setItem("gender", "");
+    sessionStorage.setItem("cityname", city);
   };
   setspec = (spec) => {
-    if (this.state.cities) {
-      const specs = this.state.cities.filter(
-        (item) => item.specialisation === spec
-      );
-      this.setState({ doctors: specs });
+    const specs = this.state.doctors.filter(
+      (item) => item.specialisation === spec
+    );
+    sessionStorage.setItem("specs", spec);
+    sessionStorage.setItem("gender", "");
+    this.setState({ doctors: specs, nav3filter: specs, availabledata: specs });
+  };
+  setdefault = async (name) => {
+    // console.log("clicked");
+    sessionStorage.setItem("cityname", "All cities ");
+    sessionStorage.removeItem("specs");
+    sessionStorage.removeItem("gender");
+    const { data } = await axios.get(`${alldoctors}?email=${email}`);
+    this.setState({ doctors: data, nav3filter: data, availabledata: data });
+    // console.log(filtered_doctors);
+  };
+  setgender = async (value) => {
+    if (value === "M") {
+      sessionStorage.setItem("gender", "Male");
     } else {
-      const specs = this.state.doctors.filter(
-        (item) => item.specialisation === spec
+      sessionStorage.setItem("gender", "Female");
+    }
+    const genderdata = this.state.nav3filter.filter(
+      (item) => item.gender === value
+    );
+    this.setState({ doctors: genderdata, duplicate: genderdata });
+  };
+  setcost = async (cost) => {
+    const doctorsdata = this.state.duplicate;
+    const costdata = cost.split("-");
+    if (costdata[0] === "500") {
+      const costfilterdata = doctorsdata.filter((item) => item.cost > 500);
+      this.setState({ doctors: costfilterdata });
+    } else {
+      const costfilterdata = doctorsdata.filter(
+        (item) => item.cost >= costdata[0] && item.cost <= costdata[1]
       );
-      this.setState({ doctors: specs });
+      this.setState({ doctors: costfilterdata });
     }
   };
-  setdefault = (name) => {
-    sessionStorage.removeItem("cityname");
-    sessionStorage.removeItem("specs");
-    axios.get(`${alldoctors}?email=${email}`).then((r) => {
-      this.setState({ doctors: r.data });
-      // console.log(r.data)
-    });
+  setavailable = (value) => {
+    const avaliable = this.state.availabledata.filter(
+      (item) => item.leavestatus === value
+    );
+    this.setState({ doctors: avaliable, nav3filter: avaliable });
   };
-  setlike = (id) => {};
   render() {
+    // console.log("nav3", this.state.nav3filter);
+
     return (
       <div>
         <Navbar />
@@ -61,20 +92,24 @@ class Doctormainpage extends Component {
           specs={(spec) => this.setspec(spec)}
           default={(name) => this.setdefault(name)}
         />
-        <Nav3 />
+        <Nav3
+          genderfilter={(value) => this.setgender(value)}
+          costfilter={(cost) => this.setcost(cost)}
+          default={(name) => this.setdefault(name)}
+          avaliable={(value) => this.setavailable(value)}
+        />
         <Doctorlist
           data={{
             doctorsdata: this.state.doctors,
           }}
+          clearfilter={() => this.setdefault}
         />
       </div>
     );
   }
 
   componentDidMount() {
-    axios.get(`${alldoctors}?email=${email}`).then((r) => {
-      this.setState({ doctors: r.data });
-    });
+    this.setdefault();
   }
 }
 

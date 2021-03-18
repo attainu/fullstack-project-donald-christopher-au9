@@ -393,10 +393,25 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    color: white;
   }
+}
+.clear_filter
+{
+  /* display: none; */
+  background-color: #434ea2;
+  color: white;
+  border: none;
+  margin: 10px;
 }
 
 @media all and (max-width: 600px) {
+  .clear_filter_div
+  {
+    /* background-color: white; */
+    display: flex;
+    justify-content: center;
+  }
   .profile_list {
     position: absolute;
     top: 150px;

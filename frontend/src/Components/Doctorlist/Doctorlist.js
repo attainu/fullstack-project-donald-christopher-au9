@@ -25,7 +25,7 @@ class Doctorlist extends Component {
     this.props.history.push(`/confirmappointment/${id}`);
   };
   renderdoctors = (data) => {
-    if (data) {
+    if (data.length > 0) {
       return data.map((doctor, idx) => (
         <div>
           <div className="Doctor_card">
@@ -108,6 +108,12 @@ class Doctorlist extends Component {
           </div>
         </div>
       ));
+    } else {
+      return (
+        <div>
+          <h4>No data found for the search..Please try by clearing filters</h4>
+        </div>
+      );
     }
   };
 
@@ -120,8 +126,9 @@ class Doctorlist extends Component {
             <div className="Doctorlist_container_text">
               <div className="doctor_card_header">
                 <span>
-                  Book from {length} {sessionStorage.getItem("specs")} doctors
-                  in {sessionStorage.getItem("cityname")}
+                  Book from {length} {sessionStorage.getItem("specs")}{" "}
+                  {sessionStorage.getItem("gender")} doctors in{" "}
+                  {sessionStorage.getItem("cityname")}
                 </span>
                 <p>With predicted wait-time & verified details</p>
               </div>

@@ -32,6 +32,7 @@ Userroute.put("/addappointment/:id", async (req, res) => {
   const patientdata = req.body.patient;
   const doctordata = req.body.doctor;
   const appointid = new mongoose.mongo.ObjectId();
+  const date = new Date();
   // res.send(appointid);
   const result = await doctor.findByIdAndUpdate(doctordata.doctorid, {
     $push: {
@@ -49,6 +50,7 @@ Userroute.put("/addappointment/:id", async (req, res) => {
         hospitalname: patientdata.hospitalname,
         reasonofconsult: patientdata.reasonofconsult,
         fee: patientdata.fee,
+        createdat: date,
       },
     },
   });
@@ -68,6 +70,7 @@ Userroute.put("/addappointment/:id", async (req, res) => {
         hospitalname: doctordata.hospitalname,
         reasonofconsult: doctordata.reasonofconsult,
         fee: doctordata.fee,
+        createdat: date,
       },
     },
   });
@@ -110,6 +113,7 @@ Userroute.post("/file", upload.single("image"), (req, res, next) => {
 
 Userroute.put("/editprofile/:id", async (req, res) => {
   const data = { ...req.body };
+
   const updated = await doctor.findByIdAndUpdate(req.params.id, {
     city: data.city,
     cost: data.cost,

@@ -29,7 +29,7 @@ class Appointments1 extends Component {
       return data.map((data) => (
         <div className="Appoint_container">
           <div className="appoint_img">
-            <img src={data.userImg} alt="/" />
+            <img src={data.doctorimg} alt="/" />
           </div>
           <div className="appoint_text">
             <div className="appoint_text1">
@@ -78,6 +78,7 @@ class Appointments1 extends Component {
                 </label>
                 <span>{data.fee}</span>
               </div>
+
               <div className="Doctor_card_button_appoint">
                 <button
                   onClick={() =>
@@ -99,7 +100,7 @@ class Appointments1 extends Component {
       return (
         <div className="Appoint_container2">
           <div className="appoint_img">
-            <img src={data[0].userImg} alt="/" />
+            <img src={data[0].doctorimg} alt="/" />
           </div>
           <div className="appoint_text">
             <div className="appoint_text1">
@@ -148,6 +149,7 @@ class Appointments1 extends Component {
                 </label>
                 <span>{data[0].fee}</span>
               </div>
+
               <div className="Doctor_card_button_appoint">
                 <button
                   onClick={() =>

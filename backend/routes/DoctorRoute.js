@@ -93,7 +93,10 @@ Doctorroute.post("/login", (req, res) => {
 });
 
 Doctorroute.get("/docdata/:id", (req, res) => {
-  doctor.findById(req.params.id).then((r) => res.send(r));
+  doctor
+    .findById(req.params.id)
+    .sort({ createdat: "asc" })
+    .then((r) => res.send(r));
 });
 
 Doctorroute.put("/doctorbooking/:id", (req, res) => {

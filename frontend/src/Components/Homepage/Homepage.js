@@ -9,8 +9,7 @@ import Footer from "./Footer";
 import Navbar from "../Navbar/Navbar";
 import Nav2 from "../Navbar/Nav2";
 const Homepage = () => {
-  sessionStorage.setItem("cityname", "Hyderabad ");
-  sessionStorage.setItem("specs", "Dentist");
+  sessionStorage.setItem("cityname", "All cities ");
   return (
     <div className="Home_container">
       <Navbar />

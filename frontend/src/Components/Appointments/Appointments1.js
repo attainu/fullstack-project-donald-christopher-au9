@@ -85,6 +85,7 @@ class Appointments1 extends Component {
                 </label>
                 <span>{data.fee}</span>
               </div>
+
               <div className="Doctor_card_button_appoint">
                 <button
                   onClick={() =>
@@ -155,6 +156,7 @@ class Appointments1 extends Component {
                 </label>
                 <span>{data[0].fee}</span>
               </div>
+
               <div className="Doctor_card_button_appoint">
                 <button
                   onClick={() =>
@@ -200,7 +202,7 @@ class Appointments1 extends Component {
   };
 
   render() {
-    // console.log("data", this.state.appointments);
+    console.log("data", this.state.appointments);
     return (
       <div className="bottom_right">
         {this.state.patient && this.renderuserdata(this.state.appointments)}
