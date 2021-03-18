@@ -8,6 +8,7 @@ import axios from "axios";
 
 const alldoctors = "http://localhost:1111/doctors";
 
+const email = sessionStorage.getItem("email");
 class Doctormainpage extends Component {
   constructor() {
     super();
@@ -15,20 +16,51 @@ class Doctormainpage extends Component {
       city: "",
       spec: "",
       doctors: "",
+      cities: "",
     };
   }
-  citydata = (city, spec) => {
-    const cityfilter = this.state.doctors.filter((item) => item.city === city);
-    const hospitalfilter = cityfilter.filter(
-      (item) => item.specialisation === spec
-    );
-    this.setState({ doctors: hospitalfilter });
+  // citydata = (city, spec) => {
+  //   const cityfilter = this.state.doctors.filter((item) => item.city === city);
+  //   const hospitalfilter = cityfilter.filter(
+  //     (item) => item.specialisation === spec
+  //   );
+  //   this.setState({ doctors: hospitalfilter });
+  // };
+  setcity = (city) => {
+    const cities = this.state.doctors.filter((item) => item.city === city);
+    this.setState({ doctors: cities, cities: "" });
   };
+  setspec = (spec) => {
+    if (this.state.cities) {
+      const specs = this.state.cities.filter(
+        (item) => item.specialisation === spec
+      );
+      this.setState({ doctors: specs });
+    } else {
+      const specs = this.state.doctors.filter(
+        (item) => item.specialisation === spec
+      );
+      this.setState({ doctors: specs });
+    }
+  };
+  setdefault = (name) => {
+    sessionStorage.removeItem("cityname");
+    sessionStorage.removeItem("specs");
+    axios.get(`${alldoctors}?email=${email}`).then((r) => {
+      this.setState({ doctors: r.data });
+      // console.log(r.data)
+    });
+  };
+  setlike = (id) => {};
   render() {
     return (
       <div>
         <Navbar />
-        <Nav2 filtereddata={(city, spec) => this.citydata(city, spec)} />
+        <Nav2
+          cityname={(city) => this.setcity(city)}
+          specs={(spec) => this.setspec(spec)}
+          default={(name) => this.setdefault(name)}
+        />
         <Nav3 />
         <Doctorlist
           data={{
@@ -40,10 +72,8 @@ class Doctormainpage extends Component {
   }
 
   componentDidMount() {
-    const email = sessionStorage.getItem("email");
     axios.get(`${alldoctors}?email=${email}`).then((r) => {
       this.setState({ doctors: r.data });
-      // console.log(r.data);
     });
   }
 }

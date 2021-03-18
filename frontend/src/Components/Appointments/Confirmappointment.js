@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./confirmappoint.css";
 import Loginpage from "../Registerpage/Loginpage";
 import Smallnav from "./Smallnav";
+import Dateselector from "../Doctorlist/Dateselector";
 const docdata = "http://localhost:1111/doctors/docdata";
 const addappintment = "http://localhost:1111/user/addappointment";
 class Confirmappointment extends Component {
@@ -37,7 +38,10 @@ class Confirmappointment extends Component {
       doctorid: this.state.doctorid,
       doctorname: this.state.doctorname,
       doctorimg: this.state.doctorimg,
-      slottime: this.state.slot,
+      slottime: {
+        time: sessionStorage.getItem("slot_time"),
+        date: sessionStorage.getItem("slot_date"),
+      },
       city: this.state.doctor.city,
       hospitalname: this.state.doctor.hospitalname,
       reasonofconsult: this.state.specialisation,
@@ -51,7 +55,10 @@ class Confirmappointment extends Component {
       doctorname: this.state.doctorname,
       doctorid: this.state.doctorid,
       doctorimg: this.state.doctorimg,
-      slottime: this.state.slot,
+      slottime: {
+        time: sessionStorage.getItem("slot_time"),
+        date: sessionStorage.getItem("slot_date"),
+      },
       city: this.state.doctor.city,
       reasonofconsult: this.state.specialisation,
       fee: this.state.fee,
@@ -83,8 +90,7 @@ class Confirmappointment extends Component {
               </div>
               <hr />
               <div className="confirm_dateinfo">
-                <span>Date:-{sessionStorage.getItem("slot_date")}</span>
-                <span>Time:-{sessionStorage.getItem("slot_time")}</span>
+                <Dateselector />
               </div>
               <hr />
               <div className="confirm_docinfo">
@@ -210,9 +216,7 @@ class Confirmappointment extends Component {
   };
   render() {
     // console.log(this.state);
-    if (!sessionStorage.getItem("slot_date")) {
-      this.props.history.push(`/doctorlist`);
-    }
+
     return (
       <div className="Main_confirm_container">
         {this.renderdata(this.state.doctor)}

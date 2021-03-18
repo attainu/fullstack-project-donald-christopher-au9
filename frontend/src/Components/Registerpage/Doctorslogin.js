@@ -35,9 +35,9 @@ class Register extends Component {
     axios.post(registerurl, this.state).then((res) => {
       console.log(res.data);
       this.setState({ error: res.data.emailerror });
-      if (res.data.success) {
-        this.props.history.push("/authpage/login");
-      }
+      // if (res.data.success) {
+      //   this.props.history.push("/authpage/login");
+      // }
     });
   };
   rendercities = (data) => {
@@ -49,8 +49,10 @@ class Register extends Component {
   };
   renderspecs = (data) => {
     if (data) {
-      return data.map((city) => (
-        <option value={city.specialisation}>{city.specialisation}</option>
+      return data.map((city, idx) => (
+        <option value={city.specialisation} key={idx}>
+          {city.specialisation}
+        </option>
       ));
     }
   };
@@ -157,7 +159,7 @@ class Register extends Component {
             onChange={this.changehandler}
           >
             <option disabled selected>
-              set specialisation
+              set experience
             </option>
             {this.renderspecs(this.state.hospitals)}
           </select>

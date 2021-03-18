@@ -8,7 +8,10 @@ const Doctorroute = express.Router();
 
 Doctorroute.get("/all", async (req, res) => {
   const result = await doctor.find({});
-  res.send(result);
+  res.send({
+    count: result.length,
+    result,
+  });
 });
 Doctorroute.get("/", async (req, res) => {
   const email = req.query.email ? req.query.email : "";

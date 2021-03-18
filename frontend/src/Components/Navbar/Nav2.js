@@ -25,9 +25,11 @@ class Nav2 extends Component {
   }
   disable_cancel = (name) => {
     if (name === "first") {
-      this.setState({ cities_list: false });
+      this.props.default("first");
+      this.setState({ cities_list: false, City_inputvalue1: "" });
     } else {
-      this.setState({ hospitalList: false });
+      this.props.default("second");
+      this.setState({ hospitalList: false, hospital_inputvalue1: "" });
     }
   };
   city_changehandler = (e) => {
@@ -40,11 +42,13 @@ class Nav2 extends Component {
     this.setState({ City_inputvalue1: keyword, City_inputvalue2: list });
   };
   set_City_inputvalue2 = (cityname) => {
+    sessionStorage.setItem("cityname", cityname);
     this.setState({
       City_inputvalue2: cityname,
       cities_list: false,
       City_inputvalue1: cityname,
     });
+    this.props.cityname(cityname);
   };
   display_city_list = (data) => {
     if (data) {
@@ -77,18 +81,17 @@ class Nav2 extends Component {
       hospital_inputvalue1: hospital,
       hospital_inputvalue2: hospital,
     });
+    sessionStorage.setItem(
+      "specs",
+      this.state.hospital_inputvalue2[0].specialisation
+    );
     // console.log(this.state, hospital);
     if (this.state.City_inputvalue2 && this.state.hospital_inputvalue2) {
-      sessionStorage.setItem("cityname", this.state.City_inputvalue2);
       sessionStorage.setItem(
         "specs",
         this.state.hospital_inputvalue2[0].specialisation
       );
-      this.props.history.push(`/doctorlist`);
-      this.props.filtereddata(
-        this.state.City_inputvalue2,
-        this.state.hospital_inputvalue2[0].specialisation
-      );
+      this.props.specs(this.state.hospital_inputvalue2[0].specialisation);
     } else {
       console.log("no");
     }

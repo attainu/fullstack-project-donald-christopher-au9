@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const mongourl = "mongodb://localhost:27017/Practo";
-// const mongourl =
-//   "mongodb+srv://benjimen:richards@cluster0.36l95.mongodb.net/practo?retryWrites=true&w=majority";
+// const mongourl = "mongodb://localhost:27017/Practo";
+const mongourl =
+  "mongodb+srv://benjimen:richards@cluster0.36l95.mongodb.net/practo?retryWrites=true&w=majority";
 
 mongoose.connect(
   mongourl,

@@ -59,6 +59,11 @@
   font-size: 14px;
   color: #787887;
 }
+.react_modal
+{
+  display: flex;
+  padding-top: 100px;
+}
 .Doctor_card_stories {
   display: flex;
   /* border: 1px solid black; */
@@ -125,13 +130,23 @@
   background-color: white;
   border: 1px solid grey;
 }
+.doctorimg
+{
+  margin-right: 0px;
+  /* border: 1px solid black */
+}
 .doctorimg img
 {
   width: 180px;
   height: 180px;
   border-radius: 50%;
+  /* margin-right: 20px; */
 }
 @media all and (max-width: 600px) {
+  .doctorimg
+  {
+    margin-right: 0px;
+  }
   .Doctor_card {
     flex-direction: column;
   }
@@ -177,6 +192,10 @@
   .Doctorlist_main_container {
     justify-content: center;
     /* border: 1px solid black; */
+  }
+  .doctorimg
+  {
+    margin-right: 50px;
   }
   /* .Doctor_card {
     width: 100%;

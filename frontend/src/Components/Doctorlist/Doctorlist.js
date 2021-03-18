@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import "./Doctorlist.css";
 import axios from "axios";
-import Datebooking from "./Datebooking";
-const alldoctors = "http://localhost:1111/doctors";
+import { withRouter } from "react-router";
+
 const disable = "http://localhost:1111/user/disable";
 const likeurl = "http://localhost:1111/doctors/editlike/";
 const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
-
 class Doctorlist extends Component {
   constructor(props) {
     super(props);
@@ -14,30 +13,20 @@ class Doctorlist extends Component {
       doctors: "",
       position: "",
       nodata: "",
+      modaldisplay: false,
     };
   }
-  likehandler = (id) => {
-    axios
-      .put(`${likeurl}${id}`)
-      .then(() =>
-        axios
-          .get(alldoctors)
-          .then((res) => this.setState({ doctors: res.data }))
-      );
-  };
-  appointmenthandler = (value, id, docimg) => {
+
+  appointmenthandler = (value, id, docimg, idx) => {
     sessionStorage.setItem("docimg", docimg);
-    axios.put(`${bookingvisible}${id}`).then(() =>
-      axios.get(alldoctors).then((res) =>
-        this.setState({
-          doctors: res.data,
-        })
-      )
-    );
+    sessionStorage.setItem("doctorid", id);
+    const ans = this.state.modaldisplay === false ? true : false;
+    this.setState({ modaldisplay: ans });
+    this.props.history.push(`/confirmappointment/${id}`);
   };
   renderdoctors = (data) => {
     if (data) {
-      return data.map((doctor) => (
+      return data.map((doctor, idx) => (
         <div>
           <div className="Doctor_card">
             <div className="doctorimg">
@@ -80,12 +69,6 @@ class Doctorlist extends Component {
                 </span>
               </div>
               <hr />
-              <div className="Doctor_card_stories">
-                <button onClick={() => this.likehandler(doctor._id)}>
-                  {doctor.likes}Likes
-                </button>
-                <span>Patient stories</span>
-              </div>
             </div>
             <div div className="Doctor_card_buttons">
               <div className="Doctor_card_button_avaliable">
@@ -110,18 +93,19 @@ class Doctorlist extends Component {
                       this.appointmenthandler(
                         doctor.bookingvisible,
                         doctor._id,
-                        doctor.profileimg
+                        doctor.profileimg,
+                        idx
                       )
                     }
                   >
                     Book appointment
                   </button>
                 )}
+
                 <button id="video">Video Consult</button>
               </div>
             </div>
           </div>
-          {doctor.bookingvisible && <Datebooking id={doctor._id} />}
         </div>
       ));
     }
@@ -141,7 +125,7 @@ class Doctorlist extends Component {
                 </span>
                 <p>With predicted wait-time & verified details</p>
               </div>
-              {this.renderdoctors(this.state.doctors)}
+              {this.renderdoctors(this.props.data.doctorsdata)}
             </div>
           </div>
           <div
@@ -159,16 +143,6 @@ class Doctorlist extends Component {
   }
   componentDidMount() {
     const windowheight = window.innerHeight;
-    const email = sessionStorage.getItem("email");
-
-    if (this.props.data.doctorsdata) {
-      this.setState({ doctors: this.props.data.doctorsdata });
-    } else {
-      axios.get(`${alldoctors}?email=${email}`).then((r) => {
-        this.setState({ doctors: r.data });
-        // console.log(r.data);
-      });
-    }
 
     if (windowheight > 650) {
       window.addEventListener("scroll", () => {
@@ -185,4 +159,4 @@ class Doctorlist extends Component {
   }
 }
 
-export default Doctorlist;
+export default withRouter(Doctorlist);

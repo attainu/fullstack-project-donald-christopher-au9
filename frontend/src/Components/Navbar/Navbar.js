@@ -22,6 +22,11 @@ class Navbar extends Component {
     const ans = this.state.profiledisplay === "none" ? "block" : "none";
     this.setState({ profiledisplay: ans });
     sessionStorage.removeItem("username");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("userid");
+    sessionStorage.removeItem("userimage");
+    sessionStorage.removeItem("cityname");
+    sessionStorage.removeItem("specs");
     this.props.history.push("/");
   };
 
