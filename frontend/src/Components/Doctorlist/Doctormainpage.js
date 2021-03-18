@@ -9,7 +9,6 @@ import { Redirect } from "react-router";
 
 const alldoctors = "http://localhost:1111/doctors";
 
-const email = sessionStorage.getItem("email");
 class Doctormainpage extends Component {
   constructor() {
     super();
@@ -24,7 +23,7 @@ class Doctormainpage extends Component {
   }
 
   setcity = (city) => {
-    const cities = this.state.maindata.filter((item) => item.city === city);
+    const cities = this.state.doctors.filter((item) => item.city === city);
     this.setState({
       doctors: cities,
       nav3filter: cities,
@@ -43,11 +42,12 @@ class Doctormainpage extends Component {
     this.setState({ doctors: specs, nav3filter: specs, availabledata: specs });
   };
   setdefault = async (name) => {
-    // console.log("clicked");
     sessionStorage.setItem("cityname", "All cities ");
     sessionStorage.removeItem("specs");
     sessionStorage.removeItem("gender");
-    const { data } = await axios.get(`${alldoctors}?email=${email}`);
+    const { data } = await axios.get(
+      `${alldoctors}?email=${sessionStorage.getItem("email")}`
+    );
     this.setState({ doctors: data, nav3filter: data, availabledata: data });
     // console.log(filtered_doctors);
   };
@@ -81,6 +81,20 @@ class Doctormainpage extends Component {
     );
     this.setState({ doctors: avaliable, nav3filter: avaliable });
   };
+  setrelevance = (name) => {
+    console.log(name);
+    if (name === "Low") {
+      const data = this.state.doctors.sort((a, b) => {
+        return a.cost - b.cost;
+      });
+      this.setState({ doctors: data });
+    } else if (name === "high") {
+      const data = this.state.doctors.sort((a, b) => {
+        return b.cost - a.cost;
+      });
+      this.setState({ doctors: data });
+    }
+  };
   render() {
     // console.log("nav3", this.state.nav3filter);
 
@@ -97,6 +111,7 @@ class Doctormainpage extends Component {
           costfilter={(cost) => this.setcost(cost)}
           default={(name) => this.setdefault(name)}
           avaliable={(value) => this.setavailable(value)}
+          relevance={(name) => this.setrelevance(name)}
         />
         <Doctorlist
           data={{

@@ -3,7 +3,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { GoVerified } from "react-icons/go";
-import { BiSearch } from "react-icons/bi";
 import "./Navbar.css";
 import axios from "axios";
 import { withRouter } from "react-router";

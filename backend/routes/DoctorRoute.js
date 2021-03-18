@@ -1,3 +1,4 @@
+const { ObjectId } = require("bson");
 const { ObjectID } = require("bson");
 const express = require("express");
 const mongodb = require("mongodb");
@@ -92,11 +93,9 @@ Doctorroute.post("/login", (req, res) => {
   });
 });
 
-Doctorroute.get("/docdata/:id", (req, res) => {
-  doctor
-    .findById(req.params.id)
-    .sort({ createdat: "asc" })
-    .then((r) => res.send(r));
+Doctorroute.get("/docdata/:id", async (req, res) => {
+  const docdata = await doctor.findById(req.params.id);
+  res.send(docdata);
 });
 
 Doctorroute.put("/doctorbooking/:id", (req, res) => {

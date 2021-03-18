@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Doctorlist.css";
 import axios from "axios";
 import { withRouter } from "react-router";
-
+import { GoVerified } from "react-icons/go";
 const disable = "http://localhost:1111/user/disable";
 const likeurl = "http://localhost:1111/doctors/editlike/";
 const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
@@ -31,6 +31,7 @@ class Doctorlist extends Component {
           <div className="Doctor_card">
             <div className="doctorimg">
               <img src={doctor.profileimg} alt=""></img>
+              {doctor.registered && <GoVerified className="doctorimg_icon" />}
             </div>
             <div className="Doctor_card_info">
               <div className="Doctor_name">

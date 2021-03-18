@@ -40,14 +40,14 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  justify-content: space-evenly;
-  /* width: 100%; */
-  min-width: 250px;
+  justify-content: center;
+  width: 250px;
   /* border: 1px solid black; */
   min-height: 200px;
   margin-left: -10%;
+  padding-top: 20px;
   align-items: flex-start;
-  line-height: 10px;
+  
 }
 .Doctor_name {
   font-size: 20px;
@@ -132,8 +132,16 @@
 }
 .doctorimg
 {
+  position: relative;
   margin-right: 0px;
-  /* border: 1px solid black */
+  /* border: 1px solid black; */
+  height: 100%;
+}
+.doctorimg_icon
+{
+  position: absolute;
+  bottom: 18px;
+  right: 13%;
 }
 .doctorimg img
 {

@@ -214,6 +214,7 @@ class Appointments1 extends Component {
   componentDidMount() {
     const id = sessionStorage.getItem("userid");
     axios.get(`${userurl}${id}`).then((res) => {
+      // console.log(res.data);
       const name = res.data.role.trim();
       if (name === "Doctor") {
         this.setState({ doctor: name });

@@ -116,11 +116,15 @@ const Nav3 = (props) => {
                 className="nav3_dropdown_relevance"
                 style={{ display: listdisplay_2 }}
               >
-                <li>a</li>
-                <li>a</li>
-                <li>a</li>
-                <li>a</li>
-                <li>a</li>
+                <li onClick={() => props.relevance("high")}>
+                  Price high to low
+                </li>
+                <li onClick={() => props.relevance("Low")}>
+                  Price low to high
+                </li>
+                <li onClick={() => props.relevance("experience")}>
+                  Years of experience
+                </li>
               </div>
             </div>
           </div>
