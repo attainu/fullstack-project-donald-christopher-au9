@@ -23,7 +23,8 @@ passport.use(
     {
       clientID: "443314923550424",
       clientSecret: "33480d45b1dc8305c86dc3d4b60d036f",
-      callbackURL: "http://localhost:1111/facebook/auth/facebook/callback",
+      callbackURL:
+        "https://guarded-bastion-92719.herokuapp.com/facebook/auth/facebook/callback",
       profileFields: ["name", "id", "email"],
     },
     function (accessToken, refreshToken, profile, cb) {
