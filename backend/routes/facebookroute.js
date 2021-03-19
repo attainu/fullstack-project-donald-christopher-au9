@@ -41,7 +41,8 @@ facebookroute.get(
 facebookroute.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "http://localhost:3000/authpage/login",
+    successRedirect:
+      "https://guarded-bastion-92719.herokuapp.com/authpage/login",
     // successRedirect: "/facebook/profile",
     failureRedirect: "/error",
   })

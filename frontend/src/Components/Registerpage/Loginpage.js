@@ -6,7 +6,7 @@ import { withRouter } from "react-router";
 const loginurl = "/doctors/login";
 // const commonurl = "http://localhost:1111/facebook/auth/facebook/";
 const commonurl =
-  "https://afternoon-plateau-11729.herokuapp.com/facebook/auth/facebook/";
+  "https://guarded-bastion-92719.herokuapp.com/facebook/auth/facebook/";
 class Loginpage extends Component {
   constructor() {
     super();
