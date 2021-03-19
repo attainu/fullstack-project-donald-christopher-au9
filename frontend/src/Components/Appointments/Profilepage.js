@@ -4,7 +4,7 @@ import "./Profilepage.css";
 const userurl = "/user";
 const editprofile = "/user/editprofile";
 const fileurl = "/user/file";
-const commonurl = "/";
+
 const allcities = "/city/all";
 const specialisationurl = "/city/special";
 class Profilepage extends Component {
@@ -34,8 +34,8 @@ class Profilepage extends Component {
     const formdata = new FormData();
     formdata.append("image", file);
     axios.post(fileurl, formdata).then((r) => {
-      this.setState({ profileimg: `${commonurl}${r.data}` });
-      // console.log(`${commonurl}/${r.data}`);
+      this.setState({ profileimg: `/${r.data}` });
+      // console.log(`https://afternoon-plateau-11729.herokuapp.com/${r.data}`);
     });
     sessionStorage.setItem("userimage", this.state.profileimg);
   };

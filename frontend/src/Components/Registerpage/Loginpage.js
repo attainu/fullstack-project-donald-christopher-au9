@@ -4,6 +4,9 @@ import { AiFillFacebook } from "react-icons/ai";
 import axios from "axios";
 import { withRouter } from "react-router";
 const loginurl = "/doctors/login";
+// const commonurl = "http://localhost:1111/facebook/auth/facebook/";
+const commonurl =
+  "https://afternoon-plateau-11729.herokuapp.com/facebook/auth/facebook/";
 class Loginpage extends Component {
   constructor() {
     super();
@@ -17,9 +20,11 @@ class Loginpage extends Component {
   changehandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  facebookhandler = () => {
-    window.location.href = "facebook/auth/facebook";
-    // console.log("clicked")
+  facebookhandler = (e) => {
+    e.preventDefault();
+    window.location.href = commonurl;
+
+    // console.log("clicked");
   };
   submithandler = (e) => {
     e.preventDefault();
@@ -112,6 +117,31 @@ class Loginpage extends Component {
         </div>
       </form>
     );
+  }
+  componentDidMount() {
+    axios.get("/facebook/profile").then((r) => {
+      if (r.data) {
+        const email = r.data.emails[0].value;
+        console.log(email);
+        axios
+          .post("/user/verify", {
+            name: email,
+          })
+          .then((res) => {
+            if (res.data.msg === "yes") {
+              sessionStorage.setItem("username", res.data.data.fullname);
+              sessionStorage.setItem("email", res.data.data.email);
+              sessionStorage.setItem("userid", res.data.data._id);
+              sessionStorage.setItem("userimage", res.data.data.profileimg);
+              this.props.history.push("/");
+              // console.log(res.data.data);
+            } else {
+              this.props.history.push("/authpage/register");
+              // console.log(res.data.data);
+            }
+          });
+      }
+    });
   }
 }
 

@@ -128,5 +128,14 @@ Userroute.put("/editprofile/:id", async (req, res) => {
   });
   doctor.findById(req.params.id).then((r) => res.send(r));
 });
-
+Userroute.post("/verify", (req, res) => {
+  doctor.findOne({ email: req.body.name }).then((r) => {
+    if (r) {
+      res.send({ msg: "yes", data: r });
+    } else {
+      res.send({ msg: "no", data: "" });
+    }
+  });
+  // console.log(req.body);
+});
 module.exports = Userroute;

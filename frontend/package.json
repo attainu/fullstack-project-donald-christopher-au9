@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://afternoon-plateau-11729.herokuapp.com/",
+  "proxy":"http://localhost:5000/",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@date-io/moment": "^2.10.8",
