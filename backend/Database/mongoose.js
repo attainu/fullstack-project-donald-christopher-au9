@@ -4,7 +4,7 @@ const mongourl =
   "mongodb+srv://benjimen:richards@cluster0.36l95.mongodb.net/practo?retryWrites=true&w=majority";
 
 mongoose.connect(
-  mongourl,
+  process.env.MONGODB_URL || mongourl,
   {
     useNewUrlParser: true,
     useFindAndModify: true,
