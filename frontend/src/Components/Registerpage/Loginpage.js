@@ -3,7 +3,7 @@ import "./Loginpage.css";
 import { AiFillFacebook } from "react-icons/ai";
 import axios from "axios";
 import { withRouter } from "react-router";
-const loginurl = "http://localhost:1111/doctors/login";
+const loginurl = "/doctors/login";
 class Loginpage extends Component {
   constructor() {
     super();
@@ -18,7 +18,7 @@ class Loginpage extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   facebookhandler = () => {
-    window.location.href = "http://localhost:1111/facebook/auth/facebook";
+    window.location.href = "facebook/auth/facebook";
     // console.log("clicked")
   };
   submithandler = (e) => {

@@ -6,8 +6,8 @@ import { GoVerified } from "react-icons/go";
 import "./Navbar.css";
 import axios from "axios";
 import { withRouter } from "react-router";
-const allcitiesurl = "http://localhost:1111/city/all";
-const specialisationurl = "http://localhost:1111/city/special";
+const allcitiesurl = "/city/all";
+const specialisationurl = "/city/special";
 class Nav2 extends Component {
   constructor() {
     super();

@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { Component } from "react";
 import "./Profilepage.css";
-const userurl = "http://localhost:1111/user";
-const editprofile = "http://localhost:1111/user/editprofile";
-const fileurl = "http://localhost:1111/user/file";
-const commonurl = "http://localhost:1111";
-const allcities = "http://localhost:1111/city/all";
-const specialisationurl = "http://localhost:1111/city/special";
+const userurl = "/user";
+const editprofile = "/user/editprofile";
+const fileurl = "/user/file";
+const commonurl = "/";
+const allcities = "/city/all";
+const specialisationurl = "/city/special";
 class Profilepage extends Component {
   constructor() {
     super();
@@ -34,7 +34,7 @@ class Profilepage extends Component {
     const formdata = new FormData();
     formdata.append("image", file);
     axios.post(fileurl, formdata).then((r) => {
-      this.setState({ profileimg: `${commonurl}/${r.data}` });
+      this.setState({ profileimg: `${commonurl}${r.data}` });
       // console.log(`${commonurl}/${r.data}`);
     });
     sessionStorage.setItem("userimage", this.state.profileimg);
@@ -252,7 +252,7 @@ class Profilepage extends Component {
   }
   componentDidMount() {
     const id = sessionStorage.getItem("userid");
-    axios.get(`${userurl}/${id}`).then((r) =>
+    axios.get(`${userurl}/${id}`).then((r) => {
       this.setState({
         userid: id,
         user: r.data,
@@ -266,8 +266,8 @@ class Profilepage extends Component {
         registered: r.data.registered,
         profileimg: r.data.profileimg,
         specialisation: r.data.specialisation,
-      })
-    );
+      });
+    });
     axios.get(allcities).then((r) => this.setState({ cities: r.data }));
     axios
       .get(specialisationurl)

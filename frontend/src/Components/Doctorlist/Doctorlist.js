@@ -3,9 +3,8 @@ import "./Doctorlist.css";
 import axios from "axios";
 import { withRouter } from "react-router";
 import { GoVerified } from "react-icons/go";
-const disable = "http://localhost:1111/user/disable";
-const likeurl = "http://localhost:1111/doctors/editlike/";
-const bookingvisible = "http://localhost:1111/doctors/doctorbooking/";
+const disable = "/user/disable";
+
 class Doctorlist extends Component {
   constructor(props) {
     super(props);

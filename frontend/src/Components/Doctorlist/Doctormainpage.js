@@ -5,10 +5,8 @@ import Navbar from "../Navbar/Navbar";
 import Doctorlist from "./Doctorlist";
 import Nav2 from "../Navbar/Nav2";
 import axios from "axios";
-import { Redirect } from "react-router";
 
-const alldoctors = "http://localhost:1111/doctors";
-
+const alldoctors = "/doctors";
 class Doctormainpage extends Component {
   constructor() {
     super();
