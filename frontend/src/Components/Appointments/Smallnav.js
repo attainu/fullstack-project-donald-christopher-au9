@@ -20,6 +20,11 @@ class Smallnav extends Component {
     const ans = this.state.profiledisplay === "none" ? "block" : "none";
     this.setState({ profiledisplay: ans });
     sessionStorage.removeItem("username");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("userid");
+    sessionStorage.removeItem("userimage");
+    sessionStorage.removeItem("cityname");
+    sessionStorage.removeItem("specs");
     this.props.history.push("/");
   };
   render() {
@@ -48,16 +53,17 @@ class Smallnav extends Component {
             <Link
               to="/appointments/appointments"
               style={{ textDecoration: "none", color: "black" }}
+              onClick={this.set_profile_dropdwon}
             >
               <li>Appointments</li>
             </Link>
             <Link
               to="/appointments/profile"
               style={{ textDecoration: "none", color: "black" }}
+              onClick={this.set_profile_dropdwon}
             >
               <li>Profile</li>
             </Link>
-
             <li onClick={this.logouthandler}>Logout</li>
           </div>
         </div>

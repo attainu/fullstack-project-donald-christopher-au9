@@ -35,7 +35,7 @@ class Profilepage extends Component {
     formdata.append("image", file);
     axios.post(fileurl, formdata).then((r) => {
       this.setState({ profileimg: `${commonurl}/${r.data}` });
-      console.log(r.data);
+      // console.log(`${commonurl}/${r.data}`);
     });
     sessionStorage.setItem("userimage", this.state.profileimg);
   };

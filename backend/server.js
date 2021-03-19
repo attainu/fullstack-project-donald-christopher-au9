@@ -1,4 +1,6 @@
-require("dotenv").config();
+const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config({ path: path.join(__dirname, "/.env") });
 const port = process.env.PORT;
 const express = require("express");
 const app = express();
@@ -6,7 +8,6 @@ const parser = require("body-parser");
 const cors = require("cors");
 const Doctorroute = require("./routes/DoctorRoute");
 const facebookroute = require("./routes/facebookroute");
-const path = require("path");
 const Userroute = require("./routes/Userroute");
 const Cityroute = require("./routes/Cityroute");
 require("./Database/mongoose");
@@ -25,8 +26,9 @@ app.use("/doctors", Doctorroute);
 app.use("/user", Userroute);
 app.use("/facebook", facebookroute);
 app.use("/city", Cityroute);
+// console.log();
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
   });
@@ -35,5 +37,5 @@ if (process.env.NODE_ENV === "production") {
     res.send("API runnning");
   });
 }
-console.log(port);
+
 app.listen(port, () => console.log(`Server is on ${port}`));

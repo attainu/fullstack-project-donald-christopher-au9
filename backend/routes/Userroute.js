@@ -5,7 +5,7 @@ const doctor = require("../mongomodals/Doctormodal");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const { ObjectID } = require("bson");
-
+const path = require("path");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads/");
