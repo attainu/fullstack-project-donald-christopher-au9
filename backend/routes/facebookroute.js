@@ -4,7 +4,6 @@ const User = require("../mongomodals/Doctormodal");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 let userprofile = "";
-
 const session = require("express-session");
 const { deleteOne } = require("../mongomodals/Doctormodal");
 facebookroute.use(session({ secret: "benjimen" }));
@@ -12,7 +11,10 @@ facebookroute.use(passport.initialize());
 facebookroute.use(passport.session());
 passport.serializeUser((user, cb) => cb(null, user));
 passport.deserializeUser((user, cb) => cb(null, user));
-
+const callbackurl = "http://localhost:1111/facebook/auth/facebook/callback";
+const callbackurlheroku =
+  "https://afternoon-plateau-11729.herokuapp.com/facebook/auth/facebook/callback";
+// "http://localhost:1111/facebook/auth/facebook/callback";
 facebookroute.get("/profile", (req, res) => {
   res.send(userprofile);
   userprofile = "";
@@ -21,10 +23,9 @@ facebookroute.get("/profile", (req, res) => {
 passport.use(
   new FacebookStrategy(
     {
-      clientID: "443314923550424",
-      clientSecret: "33480d45b1dc8305c86dc3d4b60d036f",
-      callbackURL:
-        "https://guarded-bastion-92719.herokuapp.com/facebook/auth/facebook/callback",
+      clientID: "3037414573169871",
+      clientSecret: "fb7128745d26d749642c1268670520b2",
+      callbackURL: callbackurl,
       profileFields: ["name", "id", "email"],
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -42,10 +43,9 @@ facebookroute.get(
 facebookroute.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect:
-      "https://guarded-bastion-92719.herokuapp.com/authpage/login",
-    // successRedirect: "/facebook/profile",
-    failureRedirect: "/error",
+    // successRedirect: "https://localhost:1111/authpage/login",
+    successRedirect: "http://localhost:3000/authpage/login",
+    failureRedirect: "http://localhost:3000/authpage/register",
   })
 );
 

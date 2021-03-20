@@ -289,6 +289,7 @@
 
 .nav3_dropdown_relevance {
   position: absolute;
+
   background-color: white;
   color: black;
   width: 170px;
@@ -298,10 +299,11 @@
 }
 .nav3_dropdown_relevance li {
   border-bottom: 1px solid grey;
-  height: 30px;
   list-style: none;
   padding: 4px 15px;
   font-size: 14px;
+  /* border: 1px solid black; */
+  height: max-content;
 }
 /* .checkbox2 {
   position: relative;

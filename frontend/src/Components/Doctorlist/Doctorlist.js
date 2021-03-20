@@ -43,7 +43,7 @@ class Doctorlist extends Component {
                 <span>{doctor.specialisation}</span>
               </div>
               <div className="Doctor_experience" id="Doctor_specilisation_text">
-                <span>{doctor.experience} years of experience overall</span>
+                <span>{doctor.experience}+ years of experience overall</span>
               </div>
               <div
                 className="Doctor_hospital_name"
@@ -150,7 +150,6 @@ class Doctorlist extends Component {
   }
   componentDidMount() {
     const windowheight = window.innerHeight;
-
     if (windowheight > 650) {
       window.addEventListener("scroll", () => {
         if (window.scrollY > 200) {

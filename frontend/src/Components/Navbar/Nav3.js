@@ -123,7 +123,10 @@ const Nav3 = (props) => {
                   Price low to high
                 </li>
                 <li onClick={() => props.relevance("experience")}>
-                  Years of experience
+                  less Years of experience
+                </li>
+                <li onClick={() => props.relevance("experience2")}>
+                  Most Years of experience
                 </li>
               </div>
             </div>

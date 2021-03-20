@@ -80,7 +80,7 @@ class Doctormainpage extends Component {
     this.setState({ doctors: avaliable, nav3filter: avaliable });
   };
   setrelevance = (name) => {
-    console.log(name);
+    // console.log(name);
     if (name === "Low") {
       const data = this.state.doctors.sort((a, b) => {
         return a.cost - b.cost;
@@ -89,6 +89,16 @@ class Doctormainpage extends Component {
     } else if (name === "high") {
       const data = this.state.doctors.sort((a, b) => {
         return b.cost - a.cost;
+      });
+      this.setState({ doctors: data });
+    } else if (name === "experience") {
+      const data = this.state.doctors.sort((a, b) => {
+        return parseInt(a.experience) - parseInt(b.experience);
+      });
+      this.setState({ doctors: data });
+    } else {
+      const data = this.state.doctors.sort((a, b) => {
+        return parseInt(b.experience) - parseInt(a.experience);
       });
       this.setState({ doctors: data });
     }

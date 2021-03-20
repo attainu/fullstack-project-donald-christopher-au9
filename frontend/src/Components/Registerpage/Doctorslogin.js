@@ -135,10 +135,10 @@ class Register extends Component {
             <option disabled selected>
               set experience
             </option>
-            <option value="1+">1+</option>
-            <option value="5+">5+</option>
-            <option value="10+">10+</option>
-            <option value="15+">15+</option>
+            <option value="1">1+</option>
+            <option value="5">5+</option>
+            <option value="10">10+</option>
+            <option value="15">15+</option>
           </select>
         </div>
         <div className="create_password">

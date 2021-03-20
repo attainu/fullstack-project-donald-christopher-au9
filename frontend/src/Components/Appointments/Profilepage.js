@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import "./Profilepage.css";
 const userurl = "/user";
 const editprofile = "/user/editprofile";
-const fileurl = "/user/file";
-
+const fileurl = "/multer/file";
 const allcities = "/city/all";
 const specialisationurl = "/city/special";
 class Profilepage extends Component {
@@ -33,9 +32,9 @@ class Profilepage extends Component {
     this.setState({ filedata: file });
     const formdata = new FormData();
     formdata.append("image", file);
-    axios.post(fileurl, formdata).then((r) => {
-      this.setState({ profileimg: `/${r.data}` });
-      // console.log(`https://afternoon-plateau-11729.herokuapp.com/${r.data}`);
+    axios.post("/multer/file", formdata).then((r) => {
+      this.setState({ profileimg: r.data });
+      // console.log(r.data);
     });
     sessionStorage.setItem("userimage", this.state.profileimg);
   };
@@ -207,10 +206,10 @@ class Profilepage extends Component {
                       <option disabled selected>
                         Select your experience
                       </option>
-                      <option value="+1">+1</option>
-                      <option value="+5">+5</option>
-                      <option value="+10">+10</option>
-                      <option value="+15">+15</option>
+                      <option value="1">1+</option>
+                      <option value="5">5+</option>
+                      <option value="10">10+</option>
+                      <option value="15">15+</option>
                     </select>
                   </div>
                 </div>
