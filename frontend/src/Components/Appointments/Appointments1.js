@@ -202,7 +202,7 @@ class Appointments1 extends Component {
   };
 
   render() {
-    console.log("data", this.state.appointments);
+    // console.log("data", this.state.appointments);
     return (
       <div className="bottom_right">
         {this.state.patient && this.renderuserdata(this.state.appointments)}

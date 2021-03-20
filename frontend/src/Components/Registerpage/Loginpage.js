@@ -4,7 +4,8 @@ import { AiFillFacebook } from "react-icons/ai";
 import axios from "axios";
 import { withRouter } from "react-router";
 const loginurl = "/doctors/login";
-const commonurl = "http://localhost:1111/facebook/auth/facebook/";
+const commonurl =
+  "https://rocky-chamber-59030.herokuapp.com/facebook/auth/facebook/";
 // const commonurl = "/facebook/auth/facebook";
 class Loginpage extends Component {
   constructor() {
@@ -119,7 +120,6 @@ class Loginpage extends Component {
   }
   componentDidMount() {
     axios.get("/facebook/profile").then((r) => {
-      // console.log(r.data);
       if (r.data) {
         const email = r.data.emails[0].value;
         axios

@@ -11,10 +11,11 @@ facebookroute.use(passport.initialize());
 facebookroute.use(passport.session());
 passport.serializeUser((user, cb) => cb(null, user));
 passport.deserializeUser((user, cb) => cb(null, user));
-const callbackurl = "http://localhost:1111/facebook/auth/facebook/callback";
-const callbackurlheroku =
-  "https://afternoon-plateau-11729.herokuapp.com/facebook/auth/facebook/callback";
-// "http://localhost:1111/facebook/auth/facebook/callback";
+const callbackurl =
+  "https://rocky-chamber-59030.herokuapp.com/facebook/auth/facebook/callback";
+// const callbackurlheroku =
+//   "https://afternoon-plateau-11729.herokuapp.com/facebook/auth/facebook/callback";
+// // "http://localhost:1111/facebook/auth/facebook/callback";
 facebookroute.get("/profile", (req, res) => {
   res.send(userprofile);
   userprofile = "";
@@ -44,8 +45,9 @@ facebookroute.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
     // successRedirect: "https://localhost:1111/authpage/login",
-    successRedirect: "http://localhost:3000/authpage/login",
-    failureRedirect: "http://localhost:3000/authpage/register",
+    successRedirect: "https://rocky-chamber-59030.herokuapp.com/authpage/login",
+    failureRedirect:
+      "https://rocky-chamber-59030.herokuapp.com/authpage/register",
   })
 );
 
