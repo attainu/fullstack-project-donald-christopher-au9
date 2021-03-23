@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import "./Register.css";
+import "./Css/Register.css";
 const registerurl = "doctors/register";
 const allcities = "/city/all";
 const specialisationurl = "/city/special";

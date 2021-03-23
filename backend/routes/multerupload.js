@@ -26,7 +26,7 @@ const upload = multer({
 });
 
 multerupload.post("/file", upload.single("image"), (req, res, next) => {
-  res.send(`/${req.file.path}`);
+  res.send(req.file.path);
 });
 
 module.exports = multerupload;

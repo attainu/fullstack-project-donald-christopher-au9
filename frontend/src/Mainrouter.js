@@ -6,7 +6,6 @@ import Appointments from "./Components/Appointments/Appointments";
 import Main_authpage from "./Components/Registerpage/Main_authpage";
 import Confirmappointment from "./Components/Appointments/Confirmappointment";
 import Doctormainpage from "./Components/Doctorlist/Doctormainpage";
-
 const App = () => {
   return (
     <div>

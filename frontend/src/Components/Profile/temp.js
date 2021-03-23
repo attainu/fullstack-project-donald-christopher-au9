@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import "./Profilepage.css";
 const userurl = "/user";
 const editprofile = "/user/editprofile";
-const fileurl = "/multer/file";
+
 const allcities = "/city/all";
+const commonurl = "http://localhost:1111/";
 const specialisationurl = "/city/special";
 class Profilepage extends Component {
   constructor() {
@@ -33,8 +34,8 @@ class Profilepage extends Component {
     const formdata = new FormData();
     formdata.append("image", file);
     axios.post("/multer/file", formdata).then((r) => {
-      this.setState({ profileimg: r.data });
-      // console.log(r.data);
+      this.setState({ profileimg: `${commonurl}${r.data}` });
+      // console.log(`${commonurl}${r.data}`);
     });
     sessionStorage.setItem("userimage", this.state.profileimg);
   };
