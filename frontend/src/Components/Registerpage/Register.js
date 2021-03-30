@@ -68,6 +68,7 @@ class Register extends Component {
         <div className="create_password">
           <span>Create Password</span>
           <input
+          type='password'
             placeholder="Password"
             value={this.state.password}
             name="password"

@@ -99,6 +99,7 @@ class Register extends Component {
           <input
             placeholder="please enter Password"
             name="password"
+            type='password'
             value={this.state.password}
             onChange={this.changehandler}
           />

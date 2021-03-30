@@ -64,6 +64,10 @@ class Loginpage extends Component {
     }
     // console.log(this.state)
   };
+  passwordhandler=()=>
+  {
+    this.props.history.push('/forgetpassword')
+  }
   render() {
     return (
       <form className="Login_container" onSubmit={this.submithandler}>
@@ -82,6 +86,7 @@ class Loginpage extends Component {
         <div className="Login_password">
           <span>Password</span>
           <input
+          type='password'
             placeholder="Password"
             name="password"
             value={this.state.password}
@@ -96,7 +101,7 @@ class Loginpage extends Component {
             <input type="checkbox" />
             Remeber me for 30 days
           </div>
-          <span>Forget password?</span>
+          <span onClick={this.passwordhandler}>Forget password?</span>
         </div>
         <div className="Login_withphone">
           <input type="checkbox" />

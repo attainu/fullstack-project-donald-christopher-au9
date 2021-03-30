@@ -5,13 +5,20 @@ import Register from "./Register";
 import { Link, Route } from "react-router-dom";
 import Doctorslogin from "./Doctorslogin";
 class Main_authpage extends Component {
+  constructor()
+  {
+    super()
+    this.state={
+      bottomline:''
+    }
+  }
   render() {
     return (
       <div className="authpage_container">
         <div className="Maincontent">
           <div className="Maincontent_top_nav">
             <Link to="/authpage/login">
-              <button>Login</button>
+              <button style={{borderBottom:this.state.bottomline}}>Login</button>
             </Link>
             <Link to="/authpage/register">
               <button>Register</button>
@@ -35,5 +42,6 @@ class Main_authpage extends Component {
       </div>
     );
   }
+  
 }
 export default Main_authpage;
