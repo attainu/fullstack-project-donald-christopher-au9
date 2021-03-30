@@ -49,7 +49,7 @@ const verifyhandler=()=>
       <span>
         <i>Please enter your Email</i>
       </span>
-      <span>richardsbenjialfred@gmail.com</span>
+      {/* <span>richardsbenjialfred@gmail.com</span> */}
       <input placeholder="Enter your email here" onChange={chnagehandler} />
       <button className="btn btn-primary" onClick={submithandler}>
         Submit
@@ -68,7 +68,7 @@ const verifyhandler=()=>
         }}
       >
         <p>Please enter otp sent to ur email</p>
-        <input placeholder="Enter otp" onChange={otphandler} type='number'/>
+        <input placeholder="Enter otp" onChange={otphandler} type='number' id="otpinput"/>
         <button onClick={verifyhandler}className='btn btn-primary'>Verify</button>
         {err && <h1>{err}</h1>}
       </div>

@@ -19,3 +19,22 @@
         margin: 10px;
     }
 }
+@media all and (max-width:500px)
+{
+    .Forget_container
+    {
+        & input
+    {
+        height: 50px;
+        width: 80%;
+        padding: 10px;
+        outline: none; 
+    }
+   
+    }
+    #otpinput
+    {
+        width: 140%; 
+    
+    }
+}
