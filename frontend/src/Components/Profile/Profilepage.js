@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
-import "./Profilepage.css";
+import "./Profilepage.scss";
 const userurl = "/user";
 const editprofile = "/user/editprofile";
-const fileurl = "/multer/file";
 const allcities = "/city/all";
 const commonurl = "http://localhost:1111/";
 const specialisationurl = "/city/special";
